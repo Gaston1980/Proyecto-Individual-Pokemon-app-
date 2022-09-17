@@ -1,0 +1,17 @@
+.navFilters {
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
+    padding-bottom: 20px;
+}
+.span {
+    color: white;
+    margin-right: 290px;
+    padding-top: 14px;
+}
+.labels {
+    color: white;
+    margin-right: 10px;
+    margin-left: 30px;
+}

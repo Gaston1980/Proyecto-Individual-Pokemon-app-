@@ -1,0 +1,7 @@
+.divCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: max-content;
+    
+}

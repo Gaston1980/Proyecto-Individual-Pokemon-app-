@@ -1,0 +1,32 @@
+.divCard {
+  
+    width: 500px;
+    border: solid 5px;
+    border-radius: 15px;
+    display: block;
+    position: relative; 
+    margin-bottom: 20px;
+    margin-top: 60px;
+    margin-right: 25px;
+   
+    opacity: 1;
+ }
+ .divCard:hover {  
+     transform: translateY(-2px);
+     transition: .2s;
+ }
+
+ .h3 {
+     color:black;
+     
+ }
+
+
+.PokemonImg {
+    width: 200px;
+    height: 200px;
+}
+
+.p {
+    color:black;
+}
