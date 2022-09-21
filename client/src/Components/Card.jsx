@@ -7,7 +7,7 @@ import { getPokemonDetails } from '../Actions';
 
 
 export default function Card (props) {
-   //const dispatch = useDispatch(); // equivale al mapDispactchToProps, permite disponer y dispatch actions
+   //const dispatch = useDispatch(); // equivale al mapDispatchToProps, permite disponer y dispatch actions
    // onClick = { () => { dispatch(getPokemonDetails(props.id))}}
    // {`/home/details/${props.id}`} 
    return (

@@ -1,10 +1,14 @@
 import React from 'react';
 import styles from './navbarfilters.module.css';
 import { Link } from 'react-router-dom';
+import {sortedPokemons, createdOrApiPokemons, pokemonsByType, getAllPokemons} from "../Actions/index.js";
+import { useSelector, useDispatch } from 'react-redux'
+
+
 export default function NavBarFilters () {
 // importar las actions
 //use dispatch
-
+const dispatch = useDispatch();
 
 
     return (
@@ -13,8 +17,13 @@ export default function NavBarFilters () {
             <Link to="/">
             <span className={styles.span}>INICIO</span>
             </Link>
+            <Link to="/home" onClick={()=> dispatch(getAllPokemons())}>
+            <span className={styles.span}>REINICIAR</span>
+            </Link>
             <label className={styles.labels}for="mayor-menor-a-z">Filtros: </label>
-            <select name="mayor-menor-a-z"id="mayor-menor-a-z">
+            <select name="mayor-menor-a-z"id="mayor-menor-a-z"
+                onChange={(e) => dispatch(sortedPokemons(e.target.value))}
+            >
                 <option value="Normal">Normal</option>
                 <option value="A-Z">A-Z</option>
                 <option value="Z-A">Z-A</option>
@@ -23,19 +32,23 @@ export default function NavBarFilters () {
             </select>
 
             <label className={styles.labels} for="creados-api">Creados/Api: </label>
-            <select name="creados-api"id="creados-api">
+            <select name="creados-api"id="creados-api"
+            onChange={(e) => dispatch(createdOrApiPokemons(e.target.value))}
+            >
             <option value="All">All</option>
             <option value="Creados">Creados</option>
             <option value="Api">Api</option>
             </select>
 
             <label className={styles.labels} for="tipos">Tipos: </label>
-            <select name="tipos"id="tipos">
+            <select name="tipos"id="tipos"
+            onChange={(e) => dispatch(pokemonsByType(e.target.value))}
+            >
             <option value="All">All Types</option>
             <option value="normal">Normal</option>
             <option value="fighting">Fighting</option>
             <option value="flying">Flying</option>
-            <option value="Poison">Poison</option>
+            <option value="poison">Poison</option>
             <option value="ground">Ground</option>
             <option value="rock">Rock</option>
             <option value="bug">Bug</option>
@@ -50,6 +63,7 @@ export default function NavBarFilters () {
             <option value="dragon">Dragon</option>
             <option value="dark">Dark</option>
             <option value="fairy">Fairy</option>
+            <option value="shadow">Shadow</option>
             <option value="unknown">Unknown</option>
             </select>
         </nav>

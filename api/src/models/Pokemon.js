@@ -9,10 +9,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
+        //get() { return "IDDB" + this.getDataValue("id")}
      },
      idVirtual: {
         type: DataTypes.VIRTUAL,
-        get() { return "IdDB" + this.getDataValue("id")}
+        get() { return "IDDB" + this.getDataValue("id")}
      },
     name: {
       type: DataTypes.STRING,

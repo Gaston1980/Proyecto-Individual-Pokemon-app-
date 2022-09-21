@@ -87,14 +87,14 @@ router.get("/pokemons", async (req,res) => {
 router.get("/pokemons/:id",async (req,res) => {
    
 const {id} = req.params;
-if(id.slice(0,4) === "IdDB") {
+if(id.slice(0,4) === "IDDB") {
   try {
     const pokemonByIdFromDB =  await Pokemon.findByPk(id,{include:{model: Types, attributes:"name",through:{
         attributes: []}}}) // devuelve un obj
 
         res.json(pokemonByIdFromDB)
   } catch (error) {
-      res.send(e)
+      res.send(e) 
   }
 
 } else {
@@ -159,7 +159,8 @@ router.post("/pokemons",async (req,res) => {
        res.send("Tu Pokemon se ha creado exitosamente")
     } catch (error) {
         
-    }
+    } 
+
 })
 
 

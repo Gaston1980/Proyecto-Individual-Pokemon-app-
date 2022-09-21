@@ -9,6 +9,19 @@ export default function SearchBar () {
     const dispatch = useDispatch(); // para disponer de las actions y dispacharlas
     const [pokemonName, setPokemonName] = useState('');// creo estado local para manejar el input value de la SearchBar
     
+  const validateInput = (value) => {
+    let newValue = value.toLowerCase()//para que se convierta todo lo tipeado en minusculas
+    setPokemonName(newValue)
+  }
+
+
+    const handleOnClick = (e) => {
+      e.preventDefault()
+      dispatch(getPokemonByName(pokemonName))
+      setPokemonName("")
+
+
+    }
     
     
     return (
@@ -19,15 +32,17 @@ export default function SearchBar () {
         <input className={styles.input} 
         placeholder="   Search Pokemon by name..." 
         name="searchedPokemon" value={pokemonName} type="text"
-        onChange={(e) => setPokemonName(e.target.value)}
+        onChange={(e) => validateInput(e.target.value)}
         /> 
         
-        <button className={styles.btnBuscar} type="submit" disabled = {pokemonName? false : true}
-        onClick = { () => { dispatch(getPokemonByName(pokemonName))}}>BUSCAR</button>
+        <button className={styles.btnBuscar} type="submit" 
+        onClick = {handleOnClick} >BUSCAR</button>
    
 
         </div>
   )
 };
        
-   
+  // onClick = { () => { dispatch(getPokemonByName(pokemonName))}}
+  // 
+  //  onChange={(e) => setPokemonName(e.target.value)}

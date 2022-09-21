@@ -22,7 +22,7 @@ const dispatch = useDispatch();
                     <Card
                         key={pokemon.id}
                         id={pokemon.id}
-                        name={pokemon.name}
+                        name={pokemon.name[0].toUpperCase()+pokemon.name.slice(1)}
                         img={pokemon.img}
                         types={pokemon.types}
                     />
