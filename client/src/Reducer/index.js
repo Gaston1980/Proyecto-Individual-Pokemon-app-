@@ -1,4 +1,4 @@
-import { GET_ALL_POKEMONS, GET_POKEMON, CREATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE } from "../Actions/index.js"
+import { GET_ALL_POKEMONS, GET_POKEMON, CREATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS } from "../Actions/index.js"
 
 const initialState = {
     pokemones: [], 
@@ -14,10 +14,11 @@ export default function reducer(state = initialState, action) {
         case GET_ALL_POKEMONS: 
             return {
                 ...state,
-                pokemones: state.pokemones.concat(action.payload),
+                pokemones: action.payload, // state.pokemones.concat(action.payload)
                 pokemonrenderizado: action.payload
             }
-        case GET_POKEMON_BY_NAME: 
+        case GET_POKEMON_BY_NAME:
+          console.log("Payload:",action.payload) 
             return {
                 ...state,
                 pokemonrenderizado: (action.payload)
@@ -36,6 +37,11 @@ export default function reducer(state = initialState, action) {
         return {
           ...state,
           types: action.payload
+        }
+        case REINICIAR_POKEMONS:
+        return {
+          ...state,
+          pokemonrenderizado: state.pokemones
         }
         case SORTED_POKEMONS:
             if(action.payload === "Normal"){
@@ -119,7 +125,7 @@ export default function reducer(state = initialState, action) {
             if(action.payload === "Creados"){
                 let allPokemons = state.pokemones
                 let pokemonsCreados = allPokemons.filter(poke => 
-                    poke.hasOwnProperty("idVirtual") )
+                   isNaN(poke.id) ) // aca verifico que no sea un numero el id
                     console.log(pokemonsCreados)
                     return {
                         ...state,

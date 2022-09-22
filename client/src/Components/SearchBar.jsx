@@ -19,8 +19,6 @@ export default function SearchBar () {
       e.preventDefault()
       dispatch(getPokemonByName(pokemonName))
       setPokemonName("")
-
-
     }
     
     

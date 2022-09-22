@@ -13,14 +13,15 @@ export default function Card (props) {
    return (
 
         <div className={styles.divCard}>
-            <Link to={`/home/details/${props.id}`}
-            
-            
-             >
+            {!props.id ? <h3 className={styles.h3}> {props.name} </h3> :
+            <Link to={`/home/details/${props.id}`}>
               <h3 className={styles.h3}>{props.name}</h3>
-            </Link>
+            </Link>}
+
             <img className={styles.PokemonImg} src={props.img} alt="pokemonImg"/>
-            <p className={styles.p}>Type: {props.types}</p>   
+            {!props.types ? null : <p className={styles.p}>Type: {props.types}</p> } 
+
+               
             </div>
         );
     };

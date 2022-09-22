@@ -27,13 +27,20 @@ router.get("/pokemons", async (req,res) => {
     const pokemonsCards = [];
     //const pokemonByName = {};//object.key.lenght
     
-    if(name) {
+    if(name) { 
         try {
           
     const pokemonByName = await Pokemon.findAll({where: {name : name}, include:{model: Type, attributes:["name"],through:{
-        attributes: [],}}}) // devuelve un array
-    console.log(pokemonByName)
-    if(pokemonByName.length > 0) res.json(pokemonByName)
+        attributes: [],}}}) // devuelve un array de obj
+    const pokemonByNameClean = [{
+            id: pokemonByName[0].idVirtual,
+            name: pokemonByName[0].name,
+            img: pokemonByName[0].image,
+            attack:pokemonByName[0].attack ,
+            types: pokemonByName[0].types[0].name,
+
+    }]
+    if(pokemonByName.length > 0) return res.json(pokemonByNameClean)
 
     await axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(response => {
@@ -50,13 +57,22 @@ router.get("/pokemons", async (req,res) => {
 
     })
  
-        } catch (e) {res.send("No existe ningun Pokemon con este nombre")}
+        } catch (e) {res.json([{name:"NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])}
 
     } else {
     let pokemonsFromDB = []; 
     pokemonsFromDB = await Pokemon.findAll({ include:{model: Type, attributes:["name"],through:{
-    attributes: [],}}}) // devuelve un array
-       
+    attributes: [],}}}) // devuelve un array de obj
+    console.log("pokemonsFromDB:",pokemonsFromDB)
+    let pokemonsFromDBClean = [];
+    pokemonsFromDB.map(pokemon => { pokemonsFromDBClean.push({
+        id: pokemon.idVirtual,
+        name: pokemon.name,
+        img: pokemon.image,
+        attack: pokemon.attack,
+        types: pokemon.types[0].name,
+
+    })}) 
 
     await axios("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then(async response => { 
@@ -75,8 +91,8 @@ router.get("/pokemons", async (req,res) => {
             });
          })
      }
-     pokemonsCards.concat(pokemonsFromDB)
-     res.status(200).json(pokemonsCards)
+     const pokemonsApiDb = pokemonsCards.concat(pokemonsFromDBClean) 
+     res.status(200).json(pokemonsApiDb)
        })
   
     }
@@ -87,14 +103,31 @@ router.get("/pokemons", async (req,res) => {
 router.get("/pokemons/:id",async (req,res) => {
    
 const {id} = req.params;
-if(id.slice(0,4) === "IDDB") {
+const idSliced = id.slice(4); // 1
+if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
   try {
-    const pokemonByIdFromDB =  await Pokemon.findByPk(id,{include:{model: Types, attributes:"name",through:{
+      console.log("Este es el IDSliced:",idSliced)
+    const pokemonByIdFromDB =  await Pokemon.findByPk(idSliced,{include:{model: Type, attributes:["name"],through:{
         attributes: []}}}) // devuelve un obj
+        console.log(pokemonByIdFromDB)
+    const pokemonsByIdFromDBClean = {
+        id : pokemonByIdFromDB.idVirtual,
+        name : pokemonByIdFromDB.name,
+        img : pokemonByIdFromDB.image,
+        attack : pokemonByIdFromDB.attack,
+        types : pokemonByIdFromDB.types[0].name,
+        hp: pokemonByIdFromDB.hp,
+        defense: pokemonByIdFromDB.defense,
+        speed: pokemonByIdFromDB.speed,
+        height: pokemonByIdFromDB.height,
+        weight: pokemonByIdFromDB.weight,
+        abilities: pokemonByIdFromDB.abilities
 
-        res.json(pokemonByIdFromDB)
+    }
+
+    res.json(pokemonsByIdFromDBClean)
   } catch (error) {
-      res.send(e) 
+      res.send(error) 
   }
 
 } else {
@@ -149,19 +182,19 @@ try {
 
 router.post("/pokemons",async (req,res) => {
     const {name,health_Power,attack,defense,speed,weight,height,image,type, abilities} = req.body;
+    //console.log("Name:",name, "Abilities:",abilities, "Type:",type)
     try {
        const newPokemonDB =  await Pokemon.create(
            {name,health_Power,attack,defense,speed,weight,height,image,type, abilities}
         
        )
-       const typeid = Type.findAll({where: {name: type}})
+       const typeid = await Type.findAll({where: {name: type}}) // devuelve un array de obj
+       console.log(typeid)
        newPokemonDB.addType(typeid[0].id)
-       res.send("Tu Pokemon se ha creado exitosamente")
-    } catch (error) {
+       res.json("Tu Pokemon se ha creado exitosamente")
+    } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente") }
         
-    } 
-
-})
+     })   
 
 
 

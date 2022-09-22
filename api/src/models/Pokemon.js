@@ -21,32 +21,35 @@ module.exports = (sequelize) => {
     },
     health_Power: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 99}
     },
     attack: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 99}
     },
     defense: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 99}
     },
     speed: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 99}
     },
     height: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 99}
     },
     weight: { 
       type: DataTypes.INTEGER,
-      validate: {min: 1, max: 100}
+      validate: {min: 1, max: 999}
     },
     abilities: {
       type: DataTypes.STRING,
      
     },
+    image: {
+      type: DataTypes.STRING,
+    }
   },{
     timestamps: false,
 

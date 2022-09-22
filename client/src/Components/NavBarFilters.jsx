@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './navbarfilters.module.css';
 import { Link } from 'react-router-dom';
-import {sortedPokemons, createdOrApiPokemons, pokemonsByType, getAllPokemons} from "../Actions/index.js";
+import {sortedPokemons, createdOrApiPokemons, pokemonsByType, reiniciarPokemons} from "../Actions/index.js";
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -17,7 +17,7 @@ const dispatch = useDispatch();
             <Link to="/">
             <span className={styles.span}>INICIO</span>
             </Link>
-            <Link to="/home" onClick={()=> dispatch(getAllPokemons())}>
+            <Link to="/home" onClick={()=> dispatch(reiniciarPokemons())}>
             <span className={styles.span}>REINICIAR</span>
             </Link>
             <label className={styles.labels}for="mayor-menor-a-z">Filtros: </label>
