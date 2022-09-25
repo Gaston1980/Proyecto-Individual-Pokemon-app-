@@ -28,7 +28,7 @@ const [weight, setWeight] = useState("");
 const [height, setHeight] = useState("");
 const [abilities, setAbilities] = useState("");
 const [image, setImage] = useState("");
-const [type, setType] = useState("normal");
+const [type, setType] = useState([]);
 
 const [alert, setAlert] = useState(false); //
 const [message, setMessage] = useState(""); //
@@ -147,13 +147,16 @@ const [errorImage, setErrorImage] = useState('');
   }
 
   const handleOnChange = (e) => {
-    setType(e.target.value)
-
+   
+    setType([...type, e.target.value])
 
   }
   const messageBackEnd = useSelector ((state)=> state.message)
   
-  
+  const onDelete = (e) => {
+    console.log(e.target.value)
+    setType(type.filter(t => t !== e.target.value))
+  }
 
 function onSubmit (e) {
 e.preventDefault() // para que no se re-renderice el form cuando se hace el submit
@@ -170,7 +173,7 @@ setWeight("");
 setHeight("");
 setImage("");
 setAbilities("");
-setType("normal")
+setType([])
 
 }
 
@@ -192,6 +195,9 @@ setType("normal")
           </Link>
         </nav>
         <form type="POST"  className={styles.form} onSubmit={onSubmit}>
+
+        <button name="submit"className={styles.button} type="submit"  disabled={errorAttack || errorDefense || errorHeight || errorHp || errorImage || errorName || errorSpeed || errorWeight ? true : false} >Create Pokemon</button> 
+
              <label className={styles.label}>Name: </label>
              <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
              key="name" name="name" value={name} type="text" required onChange={(e) => validateName(e.target.value)}
@@ -201,58 +207,59 @@ setType("normal")
              <label className={styles.label}>HP: </label> 
              <input className={errorHp? styles.invalido : styles.valido}
              key="hp" name="hp" value={hp} type="text" required onChange={(e) => validateHp(e.target.value)}
-             placeholder= "Type the value from 1 to 99 here..."/>
+             placeholder= "Type the value from 1 to 99 here..." autoComplete="off"/>
              {!errorHp ? null : <span className={styles.errorMessage}>{errorHp}</span>}
 
              <label className={styles.label}>Attack: </label> 
              <input className={errorAttack? styles.invalido : styles.valido}
              key="attack" name="attack" value={attack} type="text" required onChange={(e) => validateAttack(e.target.value)}
-             placeholder= "Type the value from 1 to 99 here..."/>
+             placeholder= "Type the value from 1 to 99 here..." autoComplete="off"/>
              {!errorAttack ? null : <span className={styles.errorMessage}>{errorAttack}</span>}
 
              <label className={styles.label}>Defense: </label> 
              <input className={errorDefense? styles.invalido : styles.valido}
              key="defense" name="defense" value={defense} type="text" required onChange={(e) => validateDefense(e.target.value)}
-             placeholder= "Type the value from 1 to 99 here..."/>
+             placeholder= "Type the value from 1 to 99 here..." autoComplete="off"/>
              {!errorDefense ? null : <span className={styles.errorMessage}>{errorDefense}</span>}
 
              <label className={styles.label}>Speed: </label> 
              <input className={errorSpeed? styles.invalido : styles.valido}
              key="speed" name="speed" value={speed} type="text" required onChange={(e) => validateSpeed(e.target.value)}
-             placeholder= "Type the value from 1 to 99 here..."/>
+             placeholder= "Type the value from 1 to 99 here..." autoComplete="off"/>
              {!errorSpeed ? null : <span className={styles.errorMessage}>{errorSpeed}</span>}
 
              <label className={styles.label}>Weight: </label> 
              <input className={errorWeight? styles.invalido : styles.valido}
              key="weight" name="weight" value={weight} type="text" required onChange={(e) => validateWeight(e.target.value)}
-             placeholder= "Type the value from 1 to 999 here..."/>
+             placeholder= "Type the value from 1 to 999 here..." autoComplete="off"/>
              {!errorWeight ? null : <span className={styles.errorMessage}>{errorWeight}</span>}
 
              <label className={styles.label}>Height: </label> 
              <input className={errorHeight? styles.invalido : styles.valido}
              key="height" name="height" value={height} type="text" required onChange={(e) => validateHeight(e.target.value)}
-             placeholder= "Type the value from 1 to 99 here..."/>
+             placeholder= "Type the value from 1 to 99 here..." autoComplete="off"/>
              {!errorHeight ? null : <span className={styles.errorMessage}>{errorHeight}</span>}
 
              <label className={styles.label}>Ability: </label> 
              <input className={errorAbilities? styles.invalido : styles.valido}
              key="ability" name="ability" value={abilities} type="text" required onChange={(e) => validateAbilities(e.target.value)}
-             placeholder= "Type the ability name here..."/>
+             placeholder= "Type the ability name here..." autoComplete="off"/>
              {!errorAbilities ? null : <span className={styles.errorMessage}>{errorAbilities}</span>}
 
 
              <label className={styles.imglabel}>Image: </label> 
              <input className={errorImage? styles.invalido : styles.valido}
              key="image" name="image" value={image} type="text"  required onChange={(e) => validateImage(e.target.value)}
-             placeholder= "Type the Url img here..."/>
+             placeholder= "Type the Url img here..." autoComplete="off"/>
              {!errorImage ? null : <span className={styles.errorMessage}>{errorImage}</span> }
 
              <label className={styles.typelabel}>Type: </label> 
-             <select value={type} name="types"id="types"  className={styles.select}
+             <select  name="types"id="types"  className={styles.select}  disabled={type.length === 2} 
               onChange={handleOnChange}
              >
-            <option>normal</option>
-            <option>fighting</option>
+             <option>Elije 1 o 2 opciones</option>  
+            <option >normal</option>
+            <option >fighting</option>
             <option>flying</option>
             <option>poison</option>
             <option>ground</option>
@@ -272,11 +279,25 @@ setType("normal")
             <option>shadow</option>
             <option>unknown</option>
             </select>
-
-        <button className={styles.button} type="submit"  disabled={errorAttack || errorDefense || errorHeight || errorHp || errorImage || errorName || errorSpeed || errorWeight ? true : false} >Create Pokemon</button> 
+            
+       
        
       </form>
-
+      <ul>
+                    {type.map((type, index)=>{
+                        return (
+                            <li className={styles.liselect} key={index}>
+                                <label className={styles.labelselect}>{type}</label>
+                                <button
+                                    name="delete"
+                                    className={styles.buttonselect} 
+                                    value={type}
+                                    onClick={(e)=>onDelete(e)}
+                                >X</button>
+                            </li>
+                        )
+                    })}
+                    </ul>
       <footer className={styles.footer}>
         <p className={styles.pfooter}>Pokemon App created by Gaston Frissiones 2022</p>
       </footer>

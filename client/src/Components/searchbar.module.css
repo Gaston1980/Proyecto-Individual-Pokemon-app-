@@ -32,6 +32,7 @@
     font-size: 18px;
     font-weight: bold;
     color: black;
+    cursor: pointer;
 }
 
 .btnBuscar:hover {

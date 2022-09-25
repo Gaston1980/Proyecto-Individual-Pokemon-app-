@@ -29,6 +29,7 @@ export default function reducer(state = initialState, action) {
                 pokemon: action.payload
             }
             case CREATE_POKEMON:
+              alert(action.payload)
         return {
           ...state,
           message: action.payload

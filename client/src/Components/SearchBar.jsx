@@ -28,6 +28,7 @@ export default function SearchBar () {
     <div className={styles.divSearchBar}>
 
         <input className={styles.input} 
+        autoComplete="off"
         placeholder="   Search Pokemon by name..." 
         name="searchedPokemon" value={pokemonName} type="text"
         onChange={(e) => validateInput(e.target.value)}

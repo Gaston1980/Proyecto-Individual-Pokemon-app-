@@ -20,7 +20,7 @@ const dispatch = useDispatch();
             <Link to="/home" onClick={()=> dispatch(reiniciarPokemons())}>
             <span className={styles.span}>REINICIAR</span>
             </Link>
-            <label className={styles.labels}for="mayor-menor-a-z">Filtros: </label>
+            <label className={styles.labels} htmlFor="mayor-menor-a-z">Filtros: </label>
             <select name="mayor-menor-a-z"id="mayor-menor-a-z"
                 onChange={(e) => dispatch(sortedPokemons(e.target.value))}
             >
@@ -31,7 +31,7 @@ const dispatch = useDispatch();
                 <option value="Lowest Attack">Lowest Attack</option>
             </select>
 
-            <label className={styles.labels} for="creados-api">Creados/Api: </label>
+            <label className={styles.labels} htmlFor="creados-api">Creados/Api: </label>
             <select name="creados-api"id="creados-api"
             onChange={(e) => dispatch(createdOrApiPokemons(e.target.value))}
             >
@@ -40,7 +40,7 @@ const dispatch = useDispatch();
             <option value="Api">Api</option>
             </select>
 
-            <label className={styles.labels} for="tipos">Tipos: </label>
+            <label className={styles.labels} htmlFor="tipos">Tipos: </label>
             <select name="tipos"id="tipos"
             onChange={(e) => dispatch(pokemonsByType(e.target.value))}
             >
