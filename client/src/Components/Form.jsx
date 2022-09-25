@@ -193,9 +193,9 @@ setType("normal")
         </nav>
         <form type="POST"  className={styles.form} onSubmit={onSubmit}>
              <label className={styles.label}>Name: </label>
-             <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, osea error no esta vacio, aplicar la clase de estilos "danger"
+             <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
              key="name" name="name" value={name} type="text" required onChange={(e) => validateName(e.target.value)}
-             placeholder= "Type your pokemon name here..."/>
+             placeholder= "Type your pokemon name here..." autoComplete="off"/>
              {!errorName ? null : <span className={styles.errorMessage}>{errorName}</span>} 
 
              <label className={styles.label}>HP: </label> 

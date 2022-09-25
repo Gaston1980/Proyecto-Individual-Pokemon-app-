@@ -5,6 +5,7 @@ const {Op} = require("sequelize");
 
 const { Pokemon, Type  } = require('../db');
 
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -24,27 +25,33 @@ const router = Router();
 
 router.get("/pokemons", async (req,res) => {
     const {name} = req.query;
+    console.log(name)
     const pokemonsCards = [];
-    //const pokemonByName = {};//object.key.lenght
+  
     
     if(name) { 
+    
+        console.log("Hola 1")
         try {
-          
-    const pokemonByName = await Pokemon.findAll({where: {name : name}, include:{model: Type, attributes:["name"],through:{
-        attributes: [],}}}) // devuelve un array de obj
-    const pokemonByNameClean = [{
-            id: pokemonByName[0].idVirtual,
-            name: pokemonByName[0].name,
-            img: pokemonByName[0].image,
-            attack:pokemonByName[0].attack ,
-            types: pokemonByName[0].types[0].name,
 
-    }]
-    if(pokemonByName.length > 0) return res.json(pokemonByNameClean)
-
+            let pokemonsFromDB = []; 
+            pokemonsFromDB = await Pokemon.findAll({ where: {name:name},include:{model: Type, attributes:["name"],through:{
+            attributes: [],}}}) // devuelve un array de obj
+            console.log("pokemonsFromDB:",pokemonsFromDB)
+            let pokemonsFromDBClean = [];
+            pokemonsFromDB.map(pokemon => { pokemonsFromDBClean.push({
+                id: pokemon.idVirtual,
+                name: pokemon.name,
+                img: pokemon.image,
+                attack: pokemon.attack,
+                types: pokemon.types[0].name,
+        
+            })}) 
+           
+            console.log("Hola!!!!")
     await axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(response => {
-       
+       console.log(response.data)
         pokemonsCards.push({
             id: response.data.id,
             name: response.data.name,
@@ -52,13 +59,17 @@ router.get("/pokemons", async (req,res) => {
             attack: response.data.stats[1].base_stat,
             types: response.data.types[0].type.name,
 
-        });
-        res.json(pokemonsCards) 
-
-    })
- 
-        } catch (e) {res.json([{name:"NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])}
-
+        });})
+        .catch(error => { 
+            console.log("Catch")
+            console.log("length:",pokemonsFromDBClean.length)
+            if(pokemonsFromDBClean.length>0) return res.json(pokemonsFromDBClean)
+            else return res.json([{name:"NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
+        
+         } )
+         res.json(pokemonsCards)
+} catch (e) {console.log("segundo catch")}
+//{res.json([{name:"NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])}
     } else {
     let pokemonsFromDB = []; 
     pokemonsFromDB = await Pokemon.findAll({ include:{model: Type, attributes:["name"],through:{
@@ -79,15 +90,15 @@ router.get("/pokemons", async (req,res) => {
      for(let i=0; i<response.data.results.length; i++){ // aca hago el subrequest a cada pokemon url
          await axios(`${response.data.results[i].url}`)
          .then(response => { // aca saco las propiedades que necesito de cada pokemon
-            //let types =[];
-            //response.data.types.forEach( t => types.push(t.type.name)) 
+            let types =[];
+            response.data.types.forEach( t => types.push(t.type.name)) 
             pokemonsCards.push({
                 id: response.data.id,
                 name: response.data.name,
                 img: response.data.sprites.other.dream_world.front_default,
                 attack: response.data.stats[1].base_stat,
-                types: response.data.types[0].type.name,
-
+                types: types
+//response.data.types[0].type.name,
             });
          })
      }
@@ -106,10 +117,10 @@ const {id} = req.params;
 const idSliced = id.slice(4); // 1
 if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
   try {
-      console.log("Este es el IDSliced:",idSliced)
+      //console.log("Este es el IDSliced:",idSliced)
     const pokemonByIdFromDB =  await Pokemon.findByPk(idSliced,{include:{model: Type, attributes:["name"],through:{
         attributes: []}}}) // devuelve un obj
-        console.log(pokemonByIdFromDB)
+       // console.log(pokemonByIdFromDB)
     const pokemonsByIdFromDBClean = {
         id : pokemonByIdFromDB.idVirtual,
         name : pokemonByIdFromDB.name,
@@ -121,6 +132,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
         speed: pokemonByIdFromDB.speed,
         height: pokemonByIdFromDB.height,
         weight: pokemonByIdFromDB.weight,
+        health_Power: pokemonByIdFromDB.hp,
         abilities: pokemonByIdFromDB.abilities
 
     }
@@ -135,12 +147,13 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
     try {
      await axios(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(response => { 
-    
+            let types =[];
+            response.data.types.forEach( t => types.push(t.type.name)) 
            pokemonDetails.id = response.data.id,
            pokemonDetails.name = response.data.name,
            pokemonDetails.img = response.data.sprites.other.dream_world.front_default,
            pokemonDetails.attack = response.data.stats[1].base_stat,
-           pokemonDetails.types = response.data.types[0].type.name,
+           pokemonDetails.types = types,
       
            pokemonDetails.hp = response.data.stats[0].base_stat,
            pokemonDetails.defense = response.data.stats[2].base_stat,
@@ -148,7 +161,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
            pokemonDetails.height = response.data.height,
            pokemonDetails.weight = response.data.weight,
            pokemonDetails.abilities = response.data.abilities[0].ability.name
-
+//response.data.types[0].type.name
             res.json(pokemonDetails)
         })
        
@@ -185,7 +198,7 @@ router.post("/pokemons",async (req,res) => {
     //console.log("Name:",name, "Abilities:",abilities, "Type:",type)
     try {
        const newPokemonDB =  await Pokemon.create(
-           {name,health_Power,attack,defense,speed,weight,height,image,type, abilities}
+           {name,hp: health_Power,attack,defense,speed,weight,height,image,type, abilities}
         
        )
        const typeid = await Type.findAll({where: {name: type}}) // devuelve un array de obj
@@ -200,7 +213,8 @@ router.post("/pokemons",async (req,res) => {
 
 
 
-
+// Pokemon.findAll({where: {name : name}, include:{model: Type, attributes:["name"],through:{
+ //   attributes: [],}}}) // devuelve un array de obj
 
 
 

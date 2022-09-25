@@ -135,7 +135,7 @@ export default function reducer(state = initialState, action) {
                if(action.payload === "Api"){
                 let allPokemons = state.pokemones
                 let pokemonsApi = allPokemons.filter(poke => 
-                    !poke.hasOwnProperty("idVirtual") )
+                  !(isNaN(poke.id)) )
                     console.log(pokemonsApi)
                     return {
                         ...state,
@@ -150,8 +150,16 @@ export default function reducer(state = initialState, action) {
                     pokemonrenderizado: [...state.pokemones]
                     
                 }} else {
-                    let allPokemons = state.pokemones
-                    let pokemonByType = allPokemons.filter(pokemon => pokemon.types === action.payload )
+                    //let allPokemons = state.pokemones
+                    //let pokemonByType = allPokemons.filter(pokemon =>  pokemon.types === action.payload )
+                    let allPokemons = state.pokemones;
+                    let pokemonByType = [];
+                    for(let i=0; i< allPokemons.length; i++){
+                      if(allPokemons[i].types.includes(action.payload)){
+                        pokemonByType.push(allPokemons[i])
+                      }
+                    } 
+                      
                     return {
                         ...state,
                         pokemonrenderizado: [...pokemonByType]

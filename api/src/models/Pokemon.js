@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-        //get() { return "IDDB" + this.getDataValue("id")}
+       
      },
      idVirtual: {
         type: DataTypes.VIRTUAL,
@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    health_Power: { 
+    hp: { 
       type: DataTypes.INTEGER,
       validate: {min: 1, max: 99}
     },

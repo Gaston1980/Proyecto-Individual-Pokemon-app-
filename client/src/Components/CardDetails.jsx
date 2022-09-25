@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './carddetails.module.css';
+import {Link} from "react-router-dom";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPokemonDetails } from '../Actions';
@@ -30,10 +31,16 @@ componentDidMount() {
 
         const detalles = this.props.detalles
     return (
+        <>
+         <nav className={styles.nav}>
+          <Link to="/home">
+            <span className={styles.spanhome}>HOME</span>
+          </Link>
+        </nav>
         <div className={styles.divCard}>
            <h3 className={styles.h3}>{detalles.name}</h3>
            <img className={styles.PokemonImg} src={detalles.img} alt="pokemonImg"/>
-           <p className={styles.p}>Type: {detalles.types}</p> 
+           <p className={styles.p}>Types:  { detalles.types && detalles.types.join(' | ')} </p> 
             <p className={styles.p}>ID: {detalles.id}</p> 
             <p className={styles.p}>Health Power: {detalles.hp}</p> 
             <p className={styles.p}>Attack: {detalles.attack}</p> 
@@ -43,6 +50,12 @@ componentDidMount() {
             <p className={styles.p}>Weight: {detalles.weight}</p> 
             <p className={styles.p}>Abilities: {detalles.abilities}</p>     
             </div>
+
+            <footer className={styles.footer}>
+        <p className={styles.pfooter}>Pokemon App created by Gaston Frissiones 2022</p>
+      </footer>
+            </>
+
         );
     
 }}
@@ -61,3 +74,5 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(CardDetails);
+
+// {detalles.types}
