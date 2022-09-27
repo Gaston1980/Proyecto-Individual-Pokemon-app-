@@ -13,12 +13,12 @@ module.exports = (sequelize) => {
      },
      idVirtual: {
         type: DataTypes.VIRTUAL,
-        get() { return "IDDB" + this.getDataValue("id")}
+        get() { return "IDDB" + this.getDataValue("id")} // No se crea en la tabla
      },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true, //para que no haya iguales
     },
     hp: { 
       type: DataTypes.INTEGER,

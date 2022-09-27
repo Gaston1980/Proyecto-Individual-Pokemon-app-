@@ -6,56 +6,46 @@ import { getAllPokemons } from '../Actions';
 import { connect, useDispatch } from 'react-redux';
 
 
-
-
 export  function Cards(props) {
 const dispatch = useDispatch();
     
-   useEffect(() => {  // actua como un DidMount y DidUpdate
-      dispatch(getAllPokemons());
-    },[dispatch])
+useEffect(() => {  // actua como un DidMount y DidUpdate
+dispatch(getAllPokemons());
+},[dispatch]) // array de dependencias
             
-    const [pagina, setPagina] = useState (1);
-    const [porPagina, setPorPagina] = useState (12);
+const [pagina, setPagina] = useState (1);
+const [porPagina, setPorPagina] = useState (12);
     
-    const cardsArray = props.pokemones;
-    const maximo = Math.ceil(cardsArray.length / porPagina); // defino el maximo de paginas
+const cardsArray = props.pokemones;
+const maximo = Math.ceil(cardsArray.length / porPagina); // defino el maximo de paginas
 
 
-
-
-   if(props.pokemones) {  
+if(props.pokemones) {  
     return (
         <>
         <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
         <div className={styles.divCards}>
-            {
-                props.pokemones?.slice (  //0,12 12,24 24,36
+            {props.pokemones?.slice (  //0,12 12,24 24,36
                     (pagina - 1) * porPagina,
                     (pagina - 1) * porPagina + porPagina
-        
-                  )
+                )
                 .map(pokemon =>
                     <Card
                         key={pokemon.id}
                         id={pokemon.id}
                         name={pokemon.name[0].toUpperCase()+pokemon.name.slice(1)}
-                        img={pokemon.img}
+                        img={pokemon.img} 
                         types={ pokemon.types && pokemon.types.join(' | ')}
                     />
-                    )  
-            } 
-            
+                    ) } 
         </div>
         </>
-    )
-        }
+    )}
 else {
     return (
         <p>No se econtraron Pokemons</p>
     )
-}
-} 
+}} 
     
 export const mapStateToProps = function(state) {
     return {
@@ -63,9 +53,5 @@ export const mapStateToProps = function(state) {
       }
     }
 
-
-
-
 export default connect(mapStateToProps, null)(Cards);
 
-// {pokemon.types}

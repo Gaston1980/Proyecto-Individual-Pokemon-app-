@@ -13,16 +13,13 @@ const { Pokemon, Type  } = require('../db');
 //const getPokemons = require("./getPokemons.js")
 //const getPokemonById = require("./getPokemonById.js")
 
-
-
-
 const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-
 //router.get("/pokemons", getPokemons);
 //router.get("/pokemons/:id",getPokemonById );
+
 
 router.get("/pokemons", async (req,res) => {
     const {name} = req.query;
@@ -43,7 +40,7 @@ router.get("/pokemons", async (req,res) => {
                 let types =[];
                 pokemon.types.forEach( t => types.push(t.name)) 
                 pokemonsFromDBClean.push({
-                id: pokemon.idVirtual,
+                id: pokemon.idVirtual, // se manda al front el id virtual como ID
                 name: pokemon.name,
                 img: pokemon.image,
                 attack: pokemon.attack,
@@ -69,14 +66,14 @@ router.get("/pokemons", async (req,res) => {
             console.log("Entro al Promise Catch")
             console.log("pokemonsFromDBClean.length:",pokemonsFromDBClean.length)
             if(pokemonsFromDBClean.length>0) return res.json(pokemonsFromDBClean)
-            else return res.json([{name:"POKEMON NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
+            else return res.json([{id: "x",name:"POKEMON NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
         
          } )
          res.json(pokemonsCards) // <---si lo encuentra en la Api
 
     } catch (e)  {console.log(e)} //no res.json(e) xq se rompe
 
-    } else { //Sino hay name, entro a buscar todos los Pokemons  
+    } else { //Si no hay name, entro a buscar todos los Pokemons  
 
        try {
             
@@ -157,7 +154,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
         abilities: pokemonByIdFromDB.abilities
 
     }
-    console.log("PokemonByIdFromDBClean",pokemonsByIdFromDBClean )
+    console.log("PokemonByIdFromDBClean:",pokemonsByIdFromDBClean )
     res.json(pokemonsByIdFromDBClean)
   } catch (error) {res.status(404).json(error)}
       
@@ -191,22 +188,24 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
 
 
 router.get("/types",async (req,res) => {
+    
 //Se dispatcha la solicitud al entrar al Form
 // para que cuando se vaya a crear un Pokemon, ya esten los types creados en la DB  
 try {
+   
     //Busco los types en Type de la DB
    const typeFound = await Type.findAll()// devuelve un array de obj {id,name}
    const cleanFound = [];
    for(let i=0; i< typeFound.length; i++){
        cleanFound.push(typeFound[i].name)
    }
+   
    if(cleanFound.length > 0) return res.json(cleanFound);//Porque ya estan todos los types creados en Type DB
    //Si no estan creados en la DB, Busco los types en la API y los creo en la DB
    const arrayOfTypes = [];
    const types = await axios("https://pokeapi.co/api/v2/type")
-   
    for(let i=0; i < types.data.results.length; i++){
-    array.push(types.data.results[i].name )
+    arrayOfTypes.push(types.data.results[i].name )
     await Type.create({name:types.data.results[i].name }) 
    } 
    
@@ -230,15 +229,9 @@ const {name,health_Power,attack,defense,speed,weight,height,image,type, abilitie
        }
       
         res.json("Tu Pokemon se ha creado exitosamente")
-        } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente") }
+        } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente cambiando el nombre y sino todos los valores ") }
         
      })   
-
-
-
-
-
-
 
 
 module.exports = router;

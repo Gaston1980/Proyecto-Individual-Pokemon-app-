@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('type', {
+    sequelize.define('type', { // ID incremental se crea solo x default
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -11,3 +11,5 @@ module.exports = (sequelize) => {
         timestamps: false,
         
     })};
+
+    //Nota: la tabla intermedia la crea sequelize

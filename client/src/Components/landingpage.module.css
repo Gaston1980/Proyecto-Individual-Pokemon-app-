@@ -1,6 +1,5 @@
 
 
-
 .div {
     position : absolute;
 	width : 100%;
@@ -9,9 +8,7 @@
     background-size: cover;
 }
 
-
 .btnHome {
-     
      display:inline;
      position: relative;
      top: 500px;

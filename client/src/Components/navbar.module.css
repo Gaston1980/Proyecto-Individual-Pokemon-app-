@@ -4,33 +4,26 @@
     background-color: black;
     height: fit-content;
     padding-top: 10px;
- 
 }
 .logoPokemon {
-  
     margin-right: 20px;
     margin-top: 20px;
     margin-bottom:7px;
-    margin-left:7px;
-    
+    margin-left:7px;   
 }
 
-
-
 .spanNav {
-    display: flex;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: fit-content;
-  font-weight: bold;
-  font-size: 18px;
-  color: white;
-
+   display: flex;
+   align-items: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   width: fit-content;
+   font-weight: bold;
+   font-size: 18px;
+   color: white;
 }
 
 .btnCrear {
-    
     background-color: white;
     height: 40px;
     width: 100px;

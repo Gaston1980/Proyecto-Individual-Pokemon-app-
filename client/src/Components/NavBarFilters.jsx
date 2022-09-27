@@ -2,12 +2,11 @@ import React from 'react';
 import styles from './navbarfilters.module.css';
 import { Link } from 'react-router-dom';
 import {sortedPokemons, createdOrApiPokemons, pokemonsByType, reiniciarPokemons} from "../Actions/index.js";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 
 export default function NavBarFilters () {
-// importar las actions
-//use dispatch
+
 const dispatch = useDispatch();
 
 
@@ -17,27 +16,19 @@ const dispatch = useDispatch();
             <Link to="/">
             <span className={styles.span}>INICIO</span>
             </Link>
-            <Link to="/home" onClick={()=> dispatch(reiniciarPokemons())}>
-            <span className={styles.span}>REINICIAR</span>
+            <Link to="/home" onClick={() => dispatch(reiniciarPokemons())}>
+            <span className={styles.span}>HOME</span>
             </Link>
+            
             <label className={styles.labels} htmlFor="mayor-menor-a-z">Filtros: </label>
             <select name="mayor-menor-a-z"id="mayor-menor-a-z"
-                onChange={(e) => dispatch(sortedPokemons(e.target.value))}
+            onChange={(e) => dispatch(sortedPokemons(e.target.value))}
             >
                 <option value="Normal">Normal</option>
                 <option value="A-Z">A-Z</option>
                 <option value="Z-A">Z-A</option>
                 <option value="Highest Attack">Highest Attack</option>
                 <option value="Lowest Attack">Lowest Attack</option>
-            </select>
-
-            <label className={styles.labels} htmlFor="creados-api">Creados/Api: </label>
-            <select name="creados-api"id="creados-api"
-            onChange={(e) => dispatch(createdOrApiPokemons(e.target.value))}
-            >
-            <option value="All">All</option>
-            <option value="Creados">Creados</option>
-            <option value="Api">Api</option>
             </select>
 
             <label className={styles.labels} htmlFor="tipos">Tipos: </label>
@@ -66,12 +57,16 @@ const dispatch = useDispatch();
             <option value="shadow">Shadow</option>
             <option value="unknown">Unknown</option>
             </select>
+
+            <label className={styles.labels} htmlFor="creados-api">Creados/Api: </label>
+            <select name="creados-api"id="creados-api"
+            onChange={(e) => dispatch(createdOrApiPokemons(e.target.value))}
+            >
+            <option value="All">All</option>
+            <option value="Creados">Creados</option>
+            <option value="Api">Api</option>
+            </select>
         </nav>
     )
 }
 
-// Notas:   onChange en cada select con dispatch de action con e.target.value (para acceder al input value)
-// reducer:recibe las 3 actions (toda la logica va ahi)
-// una action x select 3
-// en cada case debo preguntar con if que es lo que llega por payload y ejecutar su logica
-// lo que devuelve es una reasignacion del estado pokemonrenderizado con lo que me quedo guardado del filtrado, ordenamiento

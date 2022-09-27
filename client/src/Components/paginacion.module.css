@@ -4,30 +4,29 @@
     justify-content: center;
     gap: 15px; 
 }
-    .buttonPag {
-        background-color: #242424;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-        
+ .buttonPag {
+    background-color: #242424;
+    font-size: 22px;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     }
 
-    .buttonPag[disabled] {
-        background-color: #aaa2a2;
-        cursor: no-drop;
+.buttonPag[disabled] {
+    background-color: #aaa2a2;
+    cursor: no-drop;
     }
 
-    .inputPag {
-        height: 30px;
-        width: 50px;
-        text-align: center;
-        border: 1px solid #242424;
-        border-radius: 3px;
+.inputPag {
+    height: 30px;
+    width: 50px;
+    text-align: center;
+    border: 1px solid #242424;
+    border-radius: 3px;
     }

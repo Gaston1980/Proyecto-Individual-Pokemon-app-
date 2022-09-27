@@ -16,12 +16,5 @@ export default function NavBar() {
             </Link>  
              
         </nav>
-       
-            
-      
-
-
-
-
-    )
-}
+       )
+    }

@@ -1,5 +1,4 @@
 .divCard {
-  
     width: 500px;
     border: solid 5px;
     border-radius: 15px;
@@ -10,15 +9,15 @@
     margin-right: 25px;
     margin-left: 500px;
     background-color: burlywood;
-   
     opacity: 1;
  }
+
  .divCard:hover {  
      transform: translateY(-2px);
      transition: .2s;
  }
+
  .spanhome {
-    
     color: white;
     font-size: 18px;
     font-weight: bolder;
@@ -34,14 +33,11 @@
     justify-content:flex-start;
     background-color: black;
     height: 40px;
- 
 }
 
  .h3 {
-     color:black;
-     
+     color:black;    
  }
-
 
 .PokemonImg {
     width: 200px;
@@ -56,6 +52,7 @@
     background-color: black;
     height: 40px;
 }
+
 .pfooter {
     color: white;
     font-size: 12px;

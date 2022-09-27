@@ -2,24 +2,19 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from "./form.module.css";
 import {Link} from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createPokemon, getTypes } from '../Actions';
 
 export default function Form () {
-  const dispatch = useDispatch();
+const dispatch = useDispatch();
   
 
-  useEffect(() => {  // actua como un DidMount y DidUpdate
-    dispatch(getTypes())
-
-     },[dispatch])
+useEffect(() => {  // actua como un DidMount y DidUpdate
+dispatch(getTypes())
+},[dispatch]) // array de dependencias
   
 
-
-
-
-
-const [name, setName] = useState('');
+const [name, setName] = useState("");
 const [hp, setHp] = useState("");
 const [attack, setAttack] = useState("");
 const [defense, setDefense] = useState("");
@@ -30,138 +25,111 @@ const [abilities, setAbilities] = useState("");
 const [image, setImage] = useState("");
 const [type, setType] = useState([]);
 
-const [alert, setAlert] = useState(false); //
-const [message, setMessage] = useState(""); //
-
-const [errorName, setErrorName] = useState('');
-const [errorHp, setErrorHp] = useState('');
-const [errorAttack, setErrorAttack] = useState('');
-const [errorDefense, setErrorDefense] = useState('');
-const [errorSpeed, setErrorSpeed] = useState('');
-const [errorWeight, setErrorWeight] = useState('');
-const [errorHeight, setErrorHeight] = useState('');
-const [errorAbilities, setErrorAbilities] = useState('');
-const [errorImage, setErrorImage] = useState('');
+const [errorName, setErrorName] = useState("");
+const [errorHp, setErrorHp] = useState("");
+const [errorAttack, setErrorAttack] = useState("");
+const [errorDefense, setErrorDefense] = useState("");
+const [errorSpeed, setErrorSpeed] = useState("");
+const [errorWeight, setErrorWeight] = useState("");
+const [errorHeight, setErrorHeight] = useState("");
+const [errorAbilities, setErrorAbilities] = useState("");
+const [errorImage, setErrorImage] = useState("");
 
 
+function validateName(value) {
+if(!/^[a-z]+$/.test(value)) { // solo caracteres a-z minusculas y al menos uno
+setErrorName('>>>> Solo caracteres de la "a-z" minusculas y al menos uno <<<<');
+} else {
+setErrorName('');
+}
+setName(value);
+}
 
-    
-      
-    
+function validateHp(value) {
+if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { // que no empiece con 0, solo caracteres del 0-9, se acepta uno o dos caracteres unicamente
+setErrorHp('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
+} else {
+setErrorHp('');
+}
+setHp(value);
+}
 
+function validateAttack(value) {
+if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
+setErrorAttack('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
+} else {
+setErrorAttack('');
+}
+setAttack(value);
+}
   
-  function validateName(value) {
-    if(!/^[a-z]+$/ .test(value)) { // solo caracteres a-z minusculas y al menos uno
-      setErrorName('>>>> Solo caracteres de la "a-z" minusculas y al menos uno <<<<');
-    } else {
-      setErrorName('');
-    }
-    setName(value);
-  }
+function validateDefense(value) {
+if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
+setErrorDefense('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
+} else {
+setErrorDefense('');
+}
+setDefense(value);
+}
 
-  function validateHp(value) {
-    
-    if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { // que no empiece con 0, solo caracteres del 0-9, se acepta uno o dos caracteres unicamente
-      setErrorHp('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
-    } else {
-      setErrorHp('');
-    }
-    setHp(value);
-  
-  }
+function validateSpeed(value) {
+if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
+setErrorSpeed('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
+} else {
+setErrorSpeed('');
+}
+setSpeed(value);
+}
 
-  function validateAttack(value) {
-    
-    if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
-      setErrorAttack('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
-    } else {
-      setErrorAttack('');
-    }
-    setAttack(value);
-  
-  }
-  
-  function validateDefense(value) {
-    
-    if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
-      setErrorDefense('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
-    } else {
-      setErrorDefense('');
-    }
-    setDefense(value);
-  
-  }
+function validateHeight(value) {
+if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
+setErrorHeight('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
+} else {
+setErrorHeight('');
+}
+setHeight(value);
+}
 
-  function validateSpeed(value) {
-    
-    if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
-      setErrorSpeed('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
-    } else {
-      setErrorSpeed('');
-    }
-    setSpeed(value);
+function validateWeight(value) {
+if(!/^((?!(0))[0-9]{1,3})$/.test(value)) { 
+setErrorWeight('>>>> Solo caracteres numericos... min 1 max 999 <<<< ');
+} else {
+setErrorWeight('');
+}
+setWeight(value); 
+}
+
+function validateAbilities(value) {
+if(!/^[a-z]+$/.test(value)) { // solo caracteres a-z minusculas y al menos uno
+setErrorAbilities('>>>> Solo caracteres de la "a-z" minusculas y al menos uno <<<<');
+} else {
+setErrorAbilities('');
+}
+setAbilities(value);
+}
   
-  }
+function validateImage (value) {
+if (!/^(http[s]?)/.test(value)){
+setErrorImage('>>>> La Url de la imagen debe comenzar con http <<<< ')
+} else {
+setErrorImage('');
+}
+setImage(value);
+}
 
-  function validateHeight(value) {
-    
-    if(!/^((?!(0))[0-9]{1,2})$/.test(value)) { 
-      setErrorHeight('>>>> Solo caracteres numericos... min 1 max 99 <<<< ');
-    } else {
-      setErrorHeight('');
-    }
-    setHeight(value);
+const handleOnChange = (e) => {
+setType([...type, e.target.value])
+}
   
-  }
-
-  function validateWeight(value) {
-    if(!/^((?!(0))[0-9]{1,3})$/.test(value)) { 
-      setErrorWeight('>>>> Solo caracteres numericos... min 1 max 999 <<<< ');
-    } else {
-      setErrorWeight('');
-    }
-    setWeight(value); 
-  }
-
- 
-
-  function validateAbilities(value) {
   
-    if(!/^[a-z]+$/ .test(value)) { // solo caracteres a-z minusculas y al menos uno
-      setErrorAbilities('>>>> Solo caracteres de la "a-z" minusculas y al menos uno <<<<');
-    } else {
-      setErrorAbilities('');
-    }
-    setAbilities(value);
-  }
-  
-  function validateImage (value) {
-   
-    if (!/^(http[s]?)/.test(value)){
-      setErrorImage('>>>> La Url de la imagen debe comenzar con http <<<< ')
-      
-    } else {
-      setErrorImage('');
-    }
-    setImage(value);
-  }
-
-  const handleOnChange = (e) => {
-   
-    setType([...type, e.target.value])
-
-  }
-  const messageBackEnd = useSelector ((state)=> state.message)
-  
-  const onDelete = (e) => {
-    console.log(e.target.value)
-    setType(type.filter(t => t !== e.target.value))
-  }
+const onDelete = (e) => {
+//console.log(e.target.value)
+setType(type.filter(t => t !== e.target.value))
+}
 
 function onSubmit (e) {
-e.preventDefault() // para que no se re-renderice el form cuando se hace el submit
-// aca hay que dispatch la action createpokemon // dispatch(actionname)
-const obj = { name: name,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image, type: type   }
+e.preventDefault()
+const obj = { name: name,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image, type: type.length < 1? ["normal"] : type   }
 //console.log(obj)
 dispatch(createPokemon(obj));
 setName("");
@@ -174,29 +142,19 @@ setHeight("");
 setImage("");
 setAbilities("");
 setType([])
-
 }
 
-
-/*const handleOnclik = () => {
-  console.log("Primer:",messageBackEnd)
-  setTimeout(() => {
-    console.log("Segundo:",messageBackEnd)
-    alert(messageBackEnd)
-  },"2000");
-}*/
-
-    return (
+return (
       <div className={styles.div}>
         <nav className={styles.nav}>
           <span className={styles.span}>CREA TU POKEMON</span>
           <Link to="/home">
-            <span className={styles.spanhome}>HOME</span>
+          <span className={styles.spanhome}>HOME</span>
           </Link>
         </nav>
         <form type="POST"  className={styles.form} onSubmit={onSubmit}>
 
-        <button name="submit"className={styles.button} type="submit"  disabled={errorAttack || errorDefense || errorHeight || errorHp || errorImage || errorName || errorSpeed || errorWeight ? true : false} >Create Pokemon</button> 
+        <button name="submit"className={styles.button} type="submit"  disabled={!attack || errorAttack || !defense || errorDefense || !height || errorHeight || !hp || errorHp || !image || errorImage  || !name || errorName || !speed || errorSpeed || !weight || errorWeight || !abilities || errorAbilities ? true : false} >Create Pokemon</button> 
 
              <label className={styles.label}>Name: </label>
              <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
@@ -254,10 +212,10 @@ setType([])
              {!errorImage ? null : <span className={styles.errorMessage}>{errorImage}</span> }
 
              <label className={styles.typelabel}>Type: </label> 
-             <select  name="types"id="types"  className={styles.select}  disabled={type.length === 2} 
+             <select  name="types"id="types"  defaultValue="" className={styles.select}  disabled={type.length === 2} 
               onChange={handleOnChange}
              >
-             <option>Elije 1 o 2 opciones</option>  
+            <option disabled value="" >Elije 1 o 2 opciones</option>  
             <option >normal</option>
             <option >fighting</option>
             <option>flying</option>
@@ -279,36 +237,30 @@ setType([])
             <option>shadow</option>
             <option>unknown</option>
             </select>
-            
-       
-       
-      </form>
-      <ul>
-                    {type.map((type, index)=>{
-                        return (
-                            <li className={styles.liselect} key={index}>
-                                <label className={styles.labelselect}>{type}</label>
-                                <button
-                                    name="delete"
-                                    className={styles.buttonselect} 
-                                    value={type}
-                                    onClick={(e)=>onDelete(e)}
-                                >X</button>
-                            </li>
-                        )
-                    })}
-                    </ul>
+           
+       </form>
+
+       <ul className={styles.ulselect}>
+          {type.map((type, index)=>{
+          return (
+              <li className={styles.liselect} key={index}>
+              <label className={styles.labelselect}>{type}</label>
+              <button
+                name="delete"
+                className={styles.buttonselect} 
+                value={type}
+                onClick={(e)=>onDelete(e)}
+              >X</button>
+              </li>
+              )
+              })}
+      </ul>
+
       <footer className={styles.footer}>
         <p className={styles.pfooter}>Pokemon App created by Gaston Frissiones 2022</p>
       </footer>
+      
       </div>
-    )
-}
+    ) }
+   
 
-//Notas: accept=".png" 
-/*<input className={errorType? styles.invalido : styles.valido}
-             key="type" name="type" value={type} type="text"  required onChange={(e) => validateType(e.target.value)}/>
-             {!errorType ? null : <p>{errorType}</p>}*/
-
-             //(e) => setType(e.target.value)
-             // onClick={handleOnclik}
