@@ -41,7 +41,7 @@ router.get("/pokemons", async (req,res) => {
                 pokemon.types.forEach( t => types.push(t.name)) 
                 pokemonsFromDBClean.push({
                 id: pokemon.idVirtual, // se manda al front el id virtual como ID
-                name: pokemon.name,
+                name: pokemon.name[0].toUpperCase()+pokemon.name.slice(1),
                 img: pokemon.image,
                 attack: pokemon.attack,
                 types: types,
@@ -56,7 +56,7 @@ router.get("/pokemons", async (req,res) => {
        response.data.types.forEach( t => types.push(t.type.name))
         pokemonsCards.push({
             id: response.data.id,
-            name: response.data.name,
+            name: response.data.name[0].toUpperCase()+response.data.name.slice(1),
             img: response.data.sprites.other.dream_world.front_default,
             attack: response.data.stats[1].base_stat,
             types: types,
@@ -89,7 +89,7 @@ router.get("/pokemons", async (req,res) => {
         pokemon.types.forEach( t => types.push(t.name)) 
         pokemonsFromDBClean.push({
         id: pokemon.idVirtual,
-        name: pokemon.name,
+        name: pokemon.name[0].toUpperCase()+pokemon.name.slice(1),
         img: pokemon.image,
         attack: pokemon.attack,
         types: types,
@@ -108,7 +108,7 @@ router.get("/pokemons", async (req,res) => {
             response.data.types.forEach( t => types.push(t.type.name)) 
             pokemonsCards.push({
                 id: response.data.id,
-                name: response.data.name,
+                name: response.data.name[0].toUpperCase()+response.data.name.slice(1),
                 img: response.data.sprites.other.dream_world.front_default,
                 attack: response.data.stats[1].base_stat,
                 types: types
@@ -141,7 +141,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
     const pokemonsByIdFromDBClean = {
     
         id : pokemonByIdFromDB.idVirtual, //IDDB
-        name : pokemonByIdFromDB.name,
+        name : pokemonByIdFromDB.name[0].toUpperCase()+pokemonByIdFromDB.name.slice(1),
         img : pokemonByIdFromDB.image,
         attack : pokemonByIdFromDB.attack,
         types : types,
@@ -167,7 +167,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
             let types =[];
             response.data.types.forEach( t => types.push(t.type.name)) 
            pokemonDetails.id = response.data.id,
-           pokemonDetails.name = response.data.name,
+           pokemonDetails.name = response.data.name[0].toUpperCase()+response.data.name.slice(1),
            pokemonDetails.img = response.data.sprites.other.dream_world.front_default,
            pokemonDetails.attack = response.data.stats[1].base_stat,
            pokemonDetails.types = types,
@@ -242,7 +242,7 @@ console.log(idSliced)
          console.log("Entre al try")
          await Pokemon.destroy({where: {id:idSliced}})// devuelve un number cant de registros eliminados
        
-         res.json({id:"x",name:"POKEMON ELIMINADO",attack:"x",abilities: "x",defense:"https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png", img:"https://c0.klipartz.com/pngpicture/56/60/gratis-png-pokemon-pikachu-ilustracion-pikachu-enojado-pokemon.png"})
+         res.json({id:"x",name:"POKEMON DELETED",attack:"x",abilities: "!x!",defense:"https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png", img:"https://c0.klipartz.com/pngpicture/56/60/gratis-png-pokemon-pikachu-ilustracion-pikachu-enojado-pokemon.png"})
      } catch (error) {res.json("Se ha producido un error, no se pudo eliminar")} 
      })
 

@@ -9,7 +9,7 @@ export default function Card (props) {
 
         <div className={styles.divCard}> 
             {props.id === "0000404"? <h3 className={styles.h3}> {props.name} </h3> :
-            <Link to={`/home/details/${props.id}`}>
+            <Link to={`/home/details/${props.id}`} style={{textDecoration:"none"}}>
               <h3 className={styles.h3}>{props.name}</h3>
             </Link>}
             <img className={styles.PokemonImg} src={props.img} alt="pokemonImg"/>

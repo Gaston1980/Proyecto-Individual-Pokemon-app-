@@ -33,7 +33,7 @@ if(props.pokemones) {
                     <Card
                         key={pokemon.id}
                         id={pokemon.id}
-                        name={pokemon.name[0].toUpperCase()+pokemon.name.slice(1)}
+                        name={pokemon.name}
                         img={pokemon.img} 
                         types={ pokemon.types && pokemon.types.join(' | ')}
                     />
@@ -55,3 +55,4 @@ export const mapStateToProps = function(state) {
 
 export default connect(mapStateToProps, null)(Cards);
 
+// [0].toUpperCase()+pokemon.name.slice(1)

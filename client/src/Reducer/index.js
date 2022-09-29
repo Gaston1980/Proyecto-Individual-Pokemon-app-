@@ -66,11 +66,10 @@ export default function reducer(state = initialState, action) {
              }
 
         case SORTED_POKEMONS:
-            if(action.payload === "Normal"){
-            console.log("Entre al if Normal")
+            if(action.payload === "Choose one:"){
             return {
                 ...state,
-                //pokemonrenderizado: [...state.pokemonrenderizado]
+                pokemonrenderizado: [...state.pokemones]
               }   
             }else
             if(action.payload === "A-Z"){
@@ -144,7 +143,7 @@ export default function reducer(state = initialState, action) {
                     pokemonrenderizado: [...state.pokemones]
                   }   
             }else
-            if(action.payload === "Creados"){
+            if(action.payload === "Created"){
                 let allPokemons = state.pokemones
                 let pokemonsCreados = allPokemons.filter(poke => 
                     isNaN(poke.id) ) // aca verifico que no sea un numero el id

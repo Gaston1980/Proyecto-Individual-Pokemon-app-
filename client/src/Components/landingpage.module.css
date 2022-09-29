@@ -6,6 +6,7 @@
 	height : 100%;
     background-image:url(https://phantom-marca.unidadeditorial.es/2a6bb9293b020d388e4c1b1d3e640f1a/resize/1320/f/jpg/assets/multimedia/imagenes/2021/02/28/16145196328904.jpg);
     background-size: cover;
+    
 }
 
 .btnHome {
@@ -13,19 +14,20 @@
      position: relative;
      top: 500px;
      background-color: white;
-     height: 40px;
-     width: 100px;
-     margin-top: 10px;
-     margin-left: 5px;
+     height: 60px;
+     width: 160px;
+     margin-top: 50px;
+     margin-left: 20px;
      margin-right: 10px;
      margin-bottom: 7px;
-     border-radius: 10px;
-     border: black solid 3px;
-     font-size: 18px;
+     border-radius: 20px;
+     border: rgb(6, 88, 156) solid 6px;
+     font-size: 22px;
      font-weight: bold;
-     color: black;
-     text-decoration: none;
+     color:rgb(7, 93, 162);
+     font-family:Arial, Helvetica, sans-serif;
+    
 }
 .btnHome:hover {
-    background-color:  rgb(94, 89, 89);;
+    background-color:  rgb(240, 210, 88);;
     }

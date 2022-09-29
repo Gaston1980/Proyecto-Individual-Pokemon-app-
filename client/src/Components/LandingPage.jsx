@@ -6,8 +6,8 @@ import styles from "./landingpage.module.css"
 export default function LandingPage() {
     return (
         <div className={styles.div}>
-        <Link to="/home">
-        <button className={styles.btnHome}>ENTRAR</button>
+        <Link to="/home" style={{textDecoration:"none"}}> 
+        <button className={styles.btnHome}>WELCOME</button>
         </Link>
         </div>
     )

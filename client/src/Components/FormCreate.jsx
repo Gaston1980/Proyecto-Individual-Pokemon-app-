@@ -147,8 +147,8 @@ setType([])
 return (
       <div className={styles.div}>
         <nav className={styles.nav}>
-          <span className={styles.span}>CREA TU POKEMON</span>
-          <Link to="/home">
+          <span className={styles.span}>CREATE YOUR OWN POKEMON</span>
+          <Link to="/home"style={{textDecoration:"none"}}>
           <span className={styles.spanhome}>HOME</span>
           </Link>
         </nav>
@@ -215,7 +215,7 @@ return (
              <select  name="types"id="types"  defaultValue="" className={styles.select}  disabled={type.length === 2} 
               onChange={handleOnChange}
              >
-            <option disabled value="" >Elije 1 o 2 opciones</option>  
+            <option disabled value="" >Choose 1 or 2 options</option>  
             <option >normal</option>
             <option >fighting</option>
             <option>flying</option>
@@ -264,3 +264,4 @@ return (
     ) }
    
 
+// https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/08/pokemon_10.jpg?itok=RmpT4EgW

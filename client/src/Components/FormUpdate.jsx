@@ -16,6 +16,7 @@ export default function FormUpdate () {
       
     
     const [where, setWhere] = useState("");
+    const [name, setName] = useState("");
     const [hp, setHp] = useState("");
     const [attack, setAttack] = useState("");
     const [defense, setDefense] = useState("");
@@ -27,6 +28,7 @@ export default function FormUpdate () {
     
     
     const [errorWhere, setErrorWhere] = useState("");
+    const [errorName, setErrorName] = useState("");
     const [errorHp, setErrorHp] = useState("");
     const [errorAttack, setErrorAttack] = useState("");
     const [errorDefense, setErrorDefense] = useState("");
@@ -46,7 +48,14 @@ export default function FormUpdate () {
     setWhere(value);
     }
 
-    
+    function validateName(value) {
+      if(!/^[a-z]*$/.test(value)) { // solo caracteres a-z minusculas y al menos uno
+      setErrorName('>>>> Solo caracteres de la "a-z" minusculas <<<<');
+      } else {
+      setErrorName('');
+      }
+      setName(value);
+      }
       
     
     function validateHp(value) {
@@ -125,10 +134,11 @@ export default function FormUpdate () {
     
     function onSubmit (e) {
     e.preventDefault()
-    const obj = { where: where,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image }
+    const obj = { where: where, name:name, health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image }
     //console.log(obj)
     dispatch(updatePokemon(obj));
     setWhere("");
+    setName("");
     setHp("");
     setAttack("");
     setDefense("");
@@ -141,16 +151,17 @@ export default function FormUpdate () {
     
     return (
           <div className={styles.div}>
+
             <nav className={styles.nav}>
-              <span className={styles.span}>MODIFICA TU POKEMON</span>
-              <Link to="/home">
+              <span className={styles.span}>MODIFY YOUR POKEMON</span>
+              <Link to="/home" style={{textDecoration:"none"}}>
               <span className={styles.spanhome}>HOME</span>
               </Link>
             </nav>
 
             <form type="PUT"  className={styles.form} onSubmit={onSubmit}>
     
-            <button name="submit"className={styles.button} type="submit"  disabled={ errorAttack || errorDefense || errorHeight || errorHp || errorImage || errorSpeed || errorWeight || errorAbilities || !where || errorWhere ? true : false} >Update Pokemon</button> 
+            <button name="submit"className={styles.button} type="submit"  disabled={ errorName || errorAttack || errorDefense || errorHeight || errorHp || errorImage || errorSpeed || errorWeight || errorAbilities || !where || errorWhere ? true : false} >Update Pokemon</button> 
     
                  <label className={styles.label}>Pokemon to be Updated: </label>
                  <input className={errorWhere? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
@@ -158,40 +169,47 @@ export default function FormUpdate () {
                  placeholder= "Type the pokemon name to be modified here..." autoComplete="off"/>
                  {!errorWhere ? null : <span className={styles.errorMessage}>{errorWhere}</span>} 
                  
+                 <label className={styles.label}>Name: </label>
+                 <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
+                 key="name" name="name" value={name} type="text"  onChange={(e) => validateName(e.target.value)}
+                 placeholder= "Type the new pokemon name here..." autoComplete="off"/>
+                 {!errorName ? null : <span className={styles.errorMessage}>{errorName}</span>}
+
+
                  <label className={styles.label}>Update HP: </label> 
                  <input className={errorHp? styles.invalido : styles.valido}
                  key="hp" name="hp" value={hp} type="text"  onChange={(e) => validateHp(e.target.value)}
-                 placeholder= "Type the new value from 1 to 99 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for HP from 1 to 99 here..." autoComplete="off"/>
                  {!errorHp ? null : <span className={styles.errorMessage}>{errorHp}</span>}
     
                  <label className={styles.label}>Update Attack: </label> 
                  <input className={errorAttack? styles.invalido : styles.valido}
                  key="attack" name="attack" value={attack} type="text" onChange={(e) => validateAttack(e.target.value)}
-                 placeholder= "Type the new value from 1 to 99 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for Attack from 1 to 99 here..." autoComplete="off"/>
                  {!errorAttack ? null : <span className={styles.errorMessage}>{errorAttack}</span>}
     
                  <label className={styles.label}>Update Defense: </label> 
                  <input className={errorDefense? styles.invalido : styles.valido}
                  key="defense" name="defense" value={defense} type="text" onChange={(e) => validateDefense(e.target.value)}
-                 placeholder= "Type the new value from 1 to 99 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for Defense from 1 to 99 here..." autoComplete="off"/>
                  {!errorDefense ? null : <span className={styles.errorMessage}>{errorDefense}</span>}
     
                  <label className={styles.label}>Update Speed: </label> 
                  <input className={errorSpeed? styles.invalido : styles.valido}
                  key="speed" name="speed" value={speed} type="text"  onChange={(e) => validateSpeed(e.target.value)}
-                 placeholder= "Type the new value from 1 to 99 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for Speed from 1 to 99 here..." autoComplete="off"/>
                  {!errorSpeed ? null : <span className={styles.errorMessage}>{errorSpeed}</span>}
     
                  <label className={styles.label}>Update Weight: </label> 
                  <input className={errorWeight? styles.invalido : styles.valido}
                  key="weight" name="weight" value={weight} type="text"  onChange={(e) => validateWeight(e.target.value)}
-                 placeholder= "Type the new value from 1 to 999 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for Weight from 1 to 999 here..." autoComplete="off"/>
                  {!errorWeight ? null : <span className={styles.errorMessage}>{errorWeight}</span>}
     
                  <label className={styles.label}>Update Height: </label> 
                  <input className={errorHeight? styles.invalido : styles.valido}
                  key="height" name="height" value={height} type="text"  onChange={(e) => validateHeight(e.target.value)}
-                 placeholder= "Type the new value from 1 to 99 here..." autoComplete="off"/>
+                 placeholder= "Type the new value for Height from 1 to 99 here..." autoComplete="off"/>
                  {!errorHeight ? null : <span className={styles.errorMessage}>{errorHeight}</span>}
     
                  <label className={styles.label}>Update Ability: </label> 
@@ -206,12 +224,7 @@ export default function FormUpdate () {
                  key="image" name="image" value={image} type="text"  onChange={(e) => validateImage(e.target.value)}
                  placeholder= "Type the new Url img here..." autoComplete="off"/>
                  {!errorImage ? null : <span className={styles.errorMessage}>{errorImage}</span> }
-    
-                
-               
-           </form>
-    
-           
+          </form>
     
           <footer className={styles.footer}>
             <p className={styles.pfooter}>Pokemon App created by Gaston Frissiones 2022</p>

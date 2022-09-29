@@ -8,14 +8,15 @@ export default function NavBar() {
     return (
        
         <nav className={styles.nav}>
-         
-            <img className={styles.LogoPokemon} src={Logo} alt="logoPokemon"/>  
+            <Link to="/">
+            <img className={styles.LogoPokemon} src={Logo} alt="logoPokemon"/> 
+            </Link>
             < SearchBar/>
             <Link to="/home/create">
-            <button className={styles.btnCrear}>CREAR</button>
+            <button className={styles.btnCrear}>CREATE</button>
             </Link>  
             <Link to="/home/update">
-            <button className={styles.btnUpdate}>MODIFICAR</button>
+            <button className={styles.btnUpdate}>UPDATE</button>
             </Link>  
         </nav>
        )

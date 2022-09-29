@@ -18,6 +18,7 @@
 
  .h3 {
      color:black;
+     font-size: 22px;
  }
 
 .PokemonImg {
@@ -27,4 +28,5 @@
 
 .p {
     color:black;
+    
 }

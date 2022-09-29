@@ -28,7 +28,7 @@
     height: 40px;
     width: 100px;
     margin-top: 26px;
-    margin-left: 250px;
+    margin-left: 277px;
     margin-right: 10px;
     margin-bottom: 7px;
     border-radius: 10px;
@@ -45,10 +45,9 @@
     .btnUpdate {
         background-color: white;
         height: 40px;
-        width: 130px;
+        width: 100px;
         margin-top: 26px;
         margin-left: 20px;
-        margin-right: 10px;
         margin-bottom: 7px;
         border-radius: 10px;
         border: black solid 3px;

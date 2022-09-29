@@ -1,6 +1,6 @@
 
 .div {
-    background-image:url(https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/08/pokemon_10.jpg?itok=RmpT4EgW);
+    background-image:url(https://img.wallpapersafari.com/desktop/1920/1080/15/69/vDBKxm.png);
     background-size: cover;
     background-size: cover;
 }
@@ -9,15 +9,17 @@
     display: flex;
     justify-content:flex-start;
     background-color: black;
-    height: 40px;
+    height: 60px;
 }
 
 .span {
     display: flex;
     justify-content: center;
     color: white;
+    font-size: 22px;
+    font-weight: bolder;
     padding-top: 10px;
-    margin-top: 0px;
+    margin-top: 10px;
     width: 500px;
     margin-left: 500px;
 }
@@ -27,7 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: space-evenly;
-    margin-top: 8px;
+    margin-top: 20px;
     margin-left: 300px;
     font-size: 18px;
     font-weight: bolder;
@@ -148,7 +150,7 @@
     color: white;
     font-size: 12px;
     padding: 10px;
-    margin-top: 92px;
+    margin-top: 72px;
 }
 
 .ulselect{
@@ -183,3 +185,5 @@
     color: white;
     cursor: pointer;
 }
+
+

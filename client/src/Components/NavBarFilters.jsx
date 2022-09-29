@@ -13,16 +13,14 @@ const dispatch = useDispatch();
     return (
 
         <nav className={styles.navFilters}>
-            <Link to="/">
-            <span className={styles.span}>INICIO</span>
-            </Link>
-            <Link to="/home" onClick={() => dispatch(reiniciarPokemons())}>
+            
+            <Link to="/home" style={{textDecoration:"none"}} onClick={() => dispatch(reiniciarPokemons())}>
             <span className={styles.span}>HOME</span>
             </Link>
             
            
 
-            <label className={styles.labels} htmlFor="tipos">Tipos: </label>
+            <label className={styles.labels} htmlFor="tipos">Types: </label>
             <select name="tipos"id="tipos"
             onChange={(e) => dispatch(pokemonsByType(e.target.value))}
             >
@@ -49,23 +47,23 @@ const dispatch = useDispatch();
             <option value="unknown">Unknown</option>
             </select>
 
-            <label className={styles.labels} htmlFor="mayor-menor-a-z">Ordenar: </label>
-            <select name="mayor-menor-a-z"id="mayor-menor-a-z"
+            <label className={styles.labels} htmlFor="mayor-menor-a-z">Sort by: </label>
+            <select name="mayor-menor-a-z"id="mayor-menor-a-z" 
             onChange={(e) => dispatch(sortedPokemons(e.target.value))}
             >
-                <option value="Normal"></option>
+                <option value="Choose one:">Choose one:</option>
                 <option value="A-Z">A-Z</option>
                 <option value="Z-A">Z-A</option>
                 <option value="Highest Attack">Highest Attack</option>
                 <option value="Lowest Attack">Lowest Attack</option>
             </select>
 
-            <label className={styles.labels} htmlFor="creados-api">Creados/Api: </label>
+            <label className={styles.labels} htmlFor="creados-api">Created/Api: </label>
             <select name="creados-api"id="creados-api"
             onChange={(e) => dispatch(createdOrApiPokemons(e.target.value))}
             >
             <option value="All">All</option>
-            <option value="Creados">Creados</option>
+            <option value="Created">Created</option>
             <option value="Api">Api</option>
             </select>
         </nav>

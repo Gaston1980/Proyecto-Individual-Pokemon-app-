@@ -17,13 +17,13 @@ this.props.getPokemonDetails(id);
     return (
         <>
         <nav className={styles.nav}>
-            <Link to="/home" onClick={()=> this.props.reiniciarPokemons() } >
+            <Link to="/home" style={{textDecoration:"none"}} onClick={()=> this.props.reiniciarPokemons() } >
               <span className={styles.spanhome}>HOME</span>
             </Link>
         </nav>
 
         <div className={styles.divCard}>
-            {id.includes("IDDB")? <button className={styles.bttndelete} disabled={detalles.name === "POKEMON ELIMINADO"? true:false} onClick={()=> this.props.deletePokemonDB(id)}>DELETE</button> :null}
+           {id.includes("IDDB")? <button className={styles.bttndelete} disabled={detalles.name === "POKEMON DELETED"? true:false} onClick={()=> this.props.deletePokemonDB(id)}>DELETE</button> :null}
            <h3 className={styles.h3}>{detalles.name}</h3>
            <img className={styles.PokemonImg} src={detalles.img} alt="pokemonImg"/>
            {!detalles.types? null : <p className={styles.p}>Types: {detalles.types && detalles.types.join(' | ')} </p> }
@@ -34,7 +34,7 @@ this.props.getPokemonDetails(id);
            {!detalles.speed? null :<p className={styles.p}>Speed: {detalles.speed}</p> }
            {!detalles.height? null :<p className={styles.p}>Height: {detalles.height}</p>}
            {!detalles.weight? null :<p className={styles.p}>Weight: {detalles.weight}</p> }
-           {detalles.abilities === "x"?null:<p className={styles.p}>Abilities: {detalles.abilities}</p> }    
+           {detalles.abilities === "!x!"?<h3 className={styles.h3}>{detalles.name}</h3>:<p className={styles.p}>Abilities: {detalles.abilities}</p> }    
         </div>
 
         <footer className={styles.footer}>

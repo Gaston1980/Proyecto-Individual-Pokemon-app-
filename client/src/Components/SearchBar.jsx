@@ -33,7 +33,7 @@ setPokemonName("")
         /> 
         
         <button className={styles.btnBuscar} type="submit" 
-        onClick = {handleOnClick} >BUSCAR</button>
+        onClick = {handleOnClick} >SEARCH</button>
    
        </div>
         )
