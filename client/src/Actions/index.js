@@ -8,6 +8,8 @@ export const SORTED_POKEMONS = "SORTED_POKEMONS"
 export const CREATED_OR_API_POKEMONS = "CREATED_OR_API_POKEMONS"
 export const POKEMONS_BY_TYPE = "POKEMONS_BY_TYPE"
 export const REINICIAR_POKEMONS = "REINICIAR_POKEMONS"
+export const DELETE_POKEMON_DB = "DELETE_POKEMON_DB"
+export const UPDATE_POKEMON = "UPDATE_POKEMON"
 
 export const getAllPokemons = () => dispatch => {;
     return fetch('http://localhost:3001/pokemons') // {status: pending, result:undefined}
@@ -35,6 +37,15 @@ export const createPokemon = (payload) => dispatch => {
     .then(res => dispatch({type: CREATE_POKEMON, payload: res.data}) )
     .catch(err => console.log(err))
     }
+
+export const updatePokemon = (payload) => dispatch => {
+    return axios.put("http://localhost:3001/pokemons/",payload)
+    .then(res => dispatch({type: UPDATE_POKEMON, payload: res.data}) )
+    .catch(err => console.log(err))
+    }
+
+
+
         
 export const getTypes = () => dispatch => {
     return fetch("http://localhost:3001/types")
@@ -66,4 +77,11 @@ export const reiniciarPokemons = (payload) => {
     return {
         type: REINICIAR_POKEMONS,
         payload
-        }}        
+        }} 
+        
+        
+export const deletePokemonDB  = (id) => dispatch => {
+    return axios.delete(`http://localhost:3001/pokemons/${id}`)
+    .then(res => dispatch({type: DELETE_POKEMON_DB, payload: res.data}) )
+    .catch(err => console.log("CatchAction:",err))
+    }

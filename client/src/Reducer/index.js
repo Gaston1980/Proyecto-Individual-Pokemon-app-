@@ -1,4 +1,4 @@
-import { GET_ALL_POKEMONS, GET_POKEMON_DETAILS, CREATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS } from "../Actions/index.js"
+import { GET_ALL_POKEMONS, GET_POKEMON_DETAILS, CREATE_POKEMON,UPDATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS, DELETE_POKEMON_DB } from "../Actions/index.js"
 
 const initialState = {
     pokemones: [], 
@@ -6,7 +6,7 @@ const initialState = {
     message: "",
     types: [],
     pokemonrenderizado:[],
-    pokemonrenderizadoDos:[]
+   
     
 }
 
@@ -17,7 +17,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 pokemones: action.payload, 
                 pokemonrenderizado: action.payload,
-                pokemonrenderizadoDos: action.payload
+               
             }
 
         case GET_POKEMON_BY_NAME:
@@ -39,6 +39,19 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 message: action.payload
              }
+        case UPDATE_POKEMON:
+            alert(action.payload)
+            return {
+                ...state,
+                message: action.payload
+            }
+
+        case DELETE_POKEMON_DB:
+             alert("El Pokemon se ha borrado de la base de datos")
+                return {
+                    ...state,
+                    pokemon: action.payload
+                 }    
 
         case GET_TYPES:
             return {
@@ -57,7 +70,7 @@ export default function reducer(state = initialState, action) {
             console.log("Entre al if Normal")
             return {
                 ...state,
-                pokemonrenderizado: [...state.pokemonrenderizadoDos]
+                //pokemonrenderizado: [...state.pokemonrenderizado]
               }   
             }else
             if(action.payload === "A-Z"){

@@ -28,7 +28,7 @@
     height: 40px;
     width: 100px;
     margin-top: 26px;
-    margin-left: 260px;
+    margin-left: 250px;
     margin-right: 10px;
     margin-bottom: 7px;
     border-radius: 10px;
@@ -41,3 +41,21 @@
 .btnCrear:hover {
     background-color:  rgb(94, 89, 89);;
     }
+
+    .btnUpdate {
+        background-color: white;
+        height: 40px;
+        width: 130px;
+        margin-top: 26px;
+        margin-left: 20px;
+        margin-right: 10px;
+        margin-bottom: 7px;
+        border-radius: 10px;
+        border: black solid 3px;
+        font-size: 18px;
+        font-weight: bold;
+        color: black;  
+    }
+    .btnUpdate:hover {
+        background-color:  rgb(94, 89, 89);;
+        }

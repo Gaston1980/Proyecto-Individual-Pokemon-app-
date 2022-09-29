@@ -14,7 +14,9 @@ export default function NavBar() {
             <Link to="/home/create">
             <button className={styles.btnCrear}>CREAR</button>
             </Link>  
-             
+            <Link to="/home/update">
+            <button className={styles.btnUpdate}>MODIFICAR</button>
+            </Link>  
         </nav>
        )
     }

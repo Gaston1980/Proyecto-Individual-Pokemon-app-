@@ -4,9 +4,9 @@ import LandingPage from './Components/LandingPage';
 import NavBar from './Components/NavBar';
 import Cards from './Components/Cards';
 import CardDetails from './Components/CardDetails';
-import Form from './Components/Form';
+import FormCreate from './Components/FormCreate';
 import NavBarFilters from './Components/NavBarFilters';
-
+import FormUpdate from './Components/FormUpdate';
 
 
 function App() {
@@ -34,7 +34,11 @@ function App() {
     />
 
     <Route exact path='/home/create'>
-      <Form/>
+      <FormCreate/>
+    </Route>
+
+    <Route exact path='/home/update'>
+      <FormUpdate/>
     </Route>
     
     </div>  

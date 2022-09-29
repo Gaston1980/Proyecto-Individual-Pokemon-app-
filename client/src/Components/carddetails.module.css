@@ -4,8 +4,8 @@
     border-radius: 15px;
     display: block;
     position: relative; 
-    margin-bottom: 5px;
-    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-top: 35px;
     margin-right: 25px;
     margin-left: 500px;
     background-color: burlywood;
@@ -60,3 +60,19 @@
     margin-top: 10px;
     margin-left: 20px;
 }
+.bttndelete{
+display: flex;
+margin-top: 10px;
+margin-left: 10px;
+cursor: pointer;
+border-radius: 5px;
+border:black solid 2px;
+}
+
+.bttndelete:hover {
+    background-color:  rgb(94, 89, 89);
+    }
+    .bttndelete[disabled] {
+        background-color:rgb(94, 89, 89);
+        cursor: no-drop;
+        }

@@ -66,7 +66,7 @@ router.get("/pokemons", async (req,res) => {
             console.log("Entro al Promise Catch")
             console.log("pokemonsFromDBClean.length:",pokemonsFromDBClean.length)
             if(pokemonsFromDBClean.length>0) return res.json(pokemonsFromDBClean)
-            else return res.json([{id: "x",name:"POKEMON NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
+            else return res.json([{id:"0000404",name:"POKEMON NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
         
          } )
          res.json(pokemonsCards) // <---si lo encuentra en la Api
@@ -226,12 +226,62 @@ const {name,health_Power,attack,defense,speed,weight,height,image,type, abilitie
        for(let i=0; i<type.length; i++){
         const typeid = await Type.findAll({where: {name: type[i]}})
         newPokemonDB.addType(typeid[0].id) 
-       }
-      
+       } // pokemonid typeid
+         //   10         5
+         //   10         3
         res.json("Tu Pokemon se ha creado exitosamente")
-        } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente cambiando el nombre y sino todos los valores ") }
+        } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente cambiando el nombre") }
         
      })   
 
+router.delete("/pokemons/:id",async (req,res) => { 
+const {id} = req.params;
+const idSliced = id.slice(4);
+console.log(idSliced)
+     try {
+         console.log("Entre al try")
+         await Pokemon.destroy({where: {id:idSliced}})// devuelve un number cant de registros eliminados
+       
+         res.json({id:"x",name:"POKEMON ELIMINADO",attack:"x",abilities: "x",defense:"https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png", img:"https://c0.klipartz.com/pngpicture/56/60/gratis-png-pokemon-pikachu-ilustracion-pikachu-enojado-pokemon.png"})
+     } catch (error) {res.json("Se ha producido un error, no se pudo eliminar")} 
+     })
+
+
+router.put("/pokemons",async (req,res) => {
+const body = req.body;
+console.log(body)
+let filteredBody = {}
+for(let keys in body){
+    if( keys !== "where" && body[keys] !== ""){
+Object.assign(filteredBody, { [keys]: body[keys]})
+    }
+}
+console.log("FilteredBody:",filteredBody)
+
+
+
+const pokemonFound = await Pokemon.findAll({where: {name: req.body.where}})
+if(pokemonFound.length > 0){
+    try {
+        if(Object.entries(filteredBody).length === 0) return res.json("No se realizaron cambios. No se recibieron valores")
+        const qtModified = await Pokemon.update(filteredBody,
+        
+        {
+            where: {name: req.body.where}
+        }
+    );
+    console.log("qtModified:",qtModified)
+    res.json(`Se actualizaron con exito los valores en el Pokemon ${req.body.where}`)
+} catch (error) {console.log(error)}
+} else {
+    res.json(`No se realizo ningun cambio. No existe un Pokemon con el nombre ${req.body.where} `)
+}
+
+
+
+
+
+
+})
 
 module.exports = router;

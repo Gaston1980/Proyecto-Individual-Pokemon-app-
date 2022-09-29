@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 export default function Card (props) {
    
    return (
-// renderizado condicional para usar la Card para enviar Pokemon Not Found
+
         <div className={styles.divCard}> 
-            {!props.id? <h3 className={styles.h3}> {props.name} </h3> :
+            {props.id === "0000404"? <h3 className={styles.h3}> {props.name} </h3> :
             <Link to={`/home/details/${props.id}`}>
               <h3 className={styles.h3}>{props.name}</h3>
             </Link>}

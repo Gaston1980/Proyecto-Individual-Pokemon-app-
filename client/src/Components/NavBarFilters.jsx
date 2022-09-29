@@ -20,16 +20,7 @@ const dispatch = useDispatch();
             <span className={styles.span}>HOME</span>
             </Link>
             
-            <label className={styles.labels} htmlFor="mayor-menor-a-z">Filtros: </label>
-            <select name="mayor-menor-a-z"id="mayor-menor-a-z"
-            onChange={(e) => dispatch(sortedPokemons(e.target.value))}
-            >
-                <option value="Normal">Normal</option>
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-                <option value="Highest Attack">Highest Attack</option>
-                <option value="Lowest Attack">Lowest Attack</option>
-            </select>
+           
 
             <label className={styles.labels} htmlFor="tipos">Tipos: </label>
             <select name="tipos"id="tipos"
@@ -56,6 +47,17 @@ const dispatch = useDispatch();
             <option value="fairy">Fairy</option>
             <option value="shadow">Shadow</option>
             <option value="unknown">Unknown</option>
+            </select>
+
+            <label className={styles.labels} htmlFor="mayor-menor-a-z">Ordenar: </label>
+            <select name="mayor-menor-a-z"id="mayor-menor-a-z"
+            onChange={(e) => dispatch(sortedPokemons(e.target.value))}
+            >
+                <option value="Normal"></option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+                <option value="Highest Attack">Highest Attack</option>
+                <option value="Lowest Attack">Lowest Attack</option>
             </select>
 
             <label className={styles.labels} htmlFor="creados-api">Creados/Api: </label>

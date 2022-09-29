@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styles from "./form.module.css";
+import styles from "./formcreate.module.css";
 import {Link} from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { createPokemon, getTypes } from '../Actions';
 
-export default function Form () {
+export default function FormCreate () {
 const dispatch = useDispatch();
   
 
