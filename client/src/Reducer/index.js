@@ -1,13 +1,11 @@
-import { GET_ALL_POKEMONS, GET_POKEMON_DETAILS, CREATE_POKEMON,UPDATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS, DELETE_POKEMON_DB } from "../Actions/index.js"
+import { GET_ALL_POKEMONS, GET_POKEMON_DETAILS, CREATE_POKEMON,UPDATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS,CLEAN_POKEMON_STATE, DELETE_POKEMON_DB } from "../Actions/index.js"
 
 const initialState = {
     pokemones: [], 
     pokemon: {},
     message: "",
     types: [],
-    pokemonrenderizado:[],
-   
-    
+    pokemonrenderizado:[],    
 }
 
 export default function reducer(state = initialState, action) {
@@ -64,6 +62,12 @@ export default function reducer(state = initialState, action) {
                ...state,
               pokemonrenderizado: [...state.pokemones]
              }
+
+        case CLEAN_POKEMON_STATE:
+                return {
+                   ...state,
+                  pokemon: {}
+                 }
 
         case SORTED_POKEMONS:
             if(action.payload === "Choose one:"){
@@ -146,7 +150,7 @@ export default function reducer(state = initialState, action) {
             if(action.payload === "Created"){
                 let allPokemons = state.pokemones
                 let pokemonsCreados = allPokemons.filter(poke => 
-                    isNaN(poke.id) ) // aca verifico que no sea un numero el id
+                    isNaN(poke.id) ) //devuelva todos los que no sea un numero el id
                     //console.log(pokemonsCreados)
               return {
                      ...state,
@@ -178,7 +182,7 @@ export default function reducer(state = initialState, action) {
                         pokemonByType.push(allPokemons[i])
                       }
                     } 
-                      
+                     
                     return {
                         ...state,
                         pokemonrenderizado: [...pokemonByType]

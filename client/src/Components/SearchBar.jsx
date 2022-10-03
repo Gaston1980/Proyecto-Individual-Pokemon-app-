@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 
 export default function SearchBar () {
 
-const dispatch = useDispatch(); // para disponer de las actions y dispacharlas
-const [pokemonName, setPokemonName] = useState('');// creo estado local para manejar el input value de la SearchBar
+const dispatch = useDispatch(); // mapDispacthToProps
+const [pokemonName, setPokemonName] = useState('');
     
-const validateInput = (value) => {
+const toLowerCaseInput = (value) => {
 let newValue = value.toLowerCase()//para que se convierta todo lo tipeado en minusculas
 setPokemonName(newValue)
 }
@@ -29,7 +29,7 @@ setPokemonName("")
         autoComplete="off"
         placeholder="   Search Pokemon by name..." 
         name="searchedPokemon" value={pokemonName} type="text"
-        onChange={(e) => validateInput(e.target.value)}
+        onChange={(e) => toLowerCaseInput(e.target.value)}
         /> 
         
         <button className={styles.btnBuscar} type="submit" 

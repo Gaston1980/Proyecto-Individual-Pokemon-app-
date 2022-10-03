@@ -9,7 +9,7 @@ export default function FormCreate () {
 const dispatch = useDispatch();
   
 
-useEffect(() => {  // actua como un DidMount y DidUpdate
+useEffect(() => {  // actua como un DidMount y DidUpdate(controlado)
 dispatch(getTypes())
 },[dispatch]) // array de dependencias
   
@@ -128,8 +128,8 @@ setType(type.filter(t => t !== e.target.value))
 }
 
 function onSubmit (e) {
-e.preventDefault()
-const obj = { name: name,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image, type: type.length < 1? ["normal"] : type   }
+e.preventDefault() // para que no se re renderice y pierda los estados
+const obj = { name: name,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image, type: type.length < 1? ["normal"] : type   } // 
 //console.log(obj)
 dispatch(createPokemon(obj));
 setName("");
@@ -264,4 +264,42 @@ return (
     ) }
    
 
-// https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/08/pokemon_10.jpg?itok=RmpT4EgW
+// Opcion: hacer los estados con variables dinamica:
+/*
+ const [input, setInput] = useState({              // lo mismo para error
+        name: "",
+        hp: "",
+        speed: "",
+        abilities: "",
+        weight: "",
+        height:"",
+        attack:"",
+        defense:"",
+        image:"",
+        type:[]
+    })
+
+function validateImage (value) {
+if (!/^(http[s]?)/.test(value)){
+setError({
+  ...error,
+  [e.target.name] : ">>>> La Url de la imagen debe comenzar con http <<<<"
+})} else {
+setError({
+  ...error,
+  [e.target.name] : ""
+});
+}
+setInput({
+  ...input,
+  [e.target.name] : e.target.value
+});
+}
+
+
+
+
+
+
+
+*/

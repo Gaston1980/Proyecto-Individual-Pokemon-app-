@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './carddetails.module.css';
 import {Link} from "react-router-dom";
-import { getPokemonDetails, reiniciarPokemons, deletePokemonDB } from '../Actions';
+import { getPokemonDetails, reiniciarPokemons, deletePokemonDB, cleanPokemonState } from '../Actions';
 import { connect } from 'react-redux';
 
  export class CardDetails extends React.Component {
@@ -10,9 +10,13 @@ componentDidMount() {
 const id = this.props.match.params.id;
 this.props.getPokemonDetails(id);
 }
+componentWillUnmount(){
+this.props.cleanPokemonState();
+}
+
  
  render(){ 
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.id;//lo uso en el delete
     const detalles = this.props.detalles;
     return (
         <>
@@ -45,20 +49,20 @@ this.props.getPokemonDetails(id);
           );
       }}
 
-function mapStateToProps(state) { // permite consumir del estado global
+function mapStateToProps(state) { 
     return {
         detalles: state.pokemon
       }
     }
 
-function mapDispatchToProps(dispatch){ // permite dispatchar actions
+function mapDispatchToProps(dispatch){ 
     return {
         getPokemonDetails: id => dispatch(getPokemonDetails(id)),
         reiniciarPokemons: () => dispatch(reiniciarPokemons()),
-        deletePokemonDB: id => dispatch(deletePokemonDB(id))
+        deletePokemonDB: id => dispatch(deletePokemonDB(id)),
+        cleanPokemonState: () => dispatch(cleanPokemonState())
     }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(CardDetails);
 
-// <h3 className={styles.h3}>{detalles.name}</h3> 

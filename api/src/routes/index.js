@@ -1,5 +1,5 @@
 
-const { Router } = require('express');
+const { Router, response } = require('express');
 const axios = require('axios');
 //const {Op} = require("sequelize");
 
@@ -24,7 +24,7 @@ const router = Router();
 router.get("/pokemons", async (req,res) => {
     const {name} = req.query;
     console.log(name)
-    const pokemonsCards = [];
+    var pokemonsCards = [];
   
     if(name) { 
   
@@ -47,7 +47,7 @@ router.get("/pokemons", async (req,res) => {
                 types: types,
         
             })}) 
-           
+         console.log("pokemonsFromDbClean:",pokemonsFromDBClean)  
       //Busco en la API    
     await axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(response => {
@@ -86,7 +86,7 @@ router.get("/pokemons", async (req,res) => {
     console.log("Resultado DB:",pokemonsFromDB)
     pokemonsFromDB?.map(pokemon => { 
         let types =[];
-        pokemon.types.forEach( t => types.push(t.name)) 
+        pokemon.types.forEach( t => types.push(t.name))// devuelve undefined 
         pokemonsFromDBClean.push({
         id: pokemon.idVirtual,
         name: pokemon.name[0].toUpperCase()+pokemon.name.slice(1),
@@ -97,30 +97,33 @@ router.get("/pokemons", async (req,res) => {
     })}) 
     console.log("Clean:",pokemonsFromDBClean)
 
-  // Luego busco todos en la API
+  // Luego busco todos en la API (abajo de aca pegar otras opciones)
   await axios("https://pokeapi.co/api/v2/pokemon?limit=40")
-    .then(async response => {
-        //console.log("Response:",response) 
-     for(let i=0; i<response.data.results.length; i++){ // aca hago el subrequest a cada pokemon url
-         await axios(`${response.data.results[i].url}`) // url dinamica
-         .then(response => { // aca saco las propiedades que necesito de cada pokemon
-            let types =[];
-            response.data.types.forEach( t => types.push(t.type.name)) 
-            pokemonsCards.push({
-                id: response.data.id,
-                name: response.data.name[0].toUpperCase()+response.data.name.slice(1),
-                img: response.data.sprites.other.dream_world.front_default,
-                attack: response.data.stats[1].base_stat,
-                types: types
-
-            });
-         })
-         
-     }
-     const pokemonsApiAndDb = pokemonsCards.concat(pokemonsFromDBClean)//Junto las dos busquedas 
-     res.status(200).json(pokemonsApiAndDb)
+  .then(async response => {
+      //console.log("Response:",response) 
+   for(let i=0; i<response.data.results.length; i++){ // aca hago el subrequest a cada pokemon url
+       await axios(`${response.data.results[i].url}`) // url dinamica
+       .then(response => { // aca saco las propiedades que necesito de cada pokemon
+          let types =[];
+          response.data.types.forEach( t => types.push(t.type.name)) 
+          pokemonsCards.push({
+              id: response.data.id,
+              name: response.data.name[0].toUpperCase()+response.data.name.slice(1),
+              img: response.data.sprites.other.dream_world.front_default,
+              attack: response.data.stats[1].base_stat,
+              types: types
+  
+          });
        })
-    } catch (error) {res.status(400).json(error)}
+       
+   }
+   const pokemonsApiAndDb = pokemonsCards.concat(pokemonsFromDBClean)//Junto las dos busquedas 
+   res.status(200).json(pokemonsApiAndDb)
+     })
+       //( arriba de esto termina la otra opcion)
+    } catch (error) { 
+        console.log(error)
+        res.status(400).json(error)}
     }
 })
 
@@ -216,16 +219,19 @@ try {
 
 router.post("/pokemons",async (req,res) => {
 const {name,health_Power,attack,defense,speed,weight,height,image,type, abilities} = req.body;
-//console.log("Name:",name, "Abilities:",abilities, "Type:",type)
+console.log("Types:",type)
     try {
+        
         //Creo el Pokemon en Pokemon DB
        const newPokemonDB = await Pokemon.create(
-       {name,hp: health_Power,attack,defense,speed,weight,height,image, abilities}
+       {name,hp: health_Power,attack,defense,speed,weight,height,image, abilities,}
        )
        //Se hace la relacion del Pokemon con Type segun sus types
        for(let i=0; i<type.length; i++){
         const typeid = await Type.findAll({where: {name: type[i]}})
-        newPokemonDB.addType(typeid[0].id) 
+        console.log("TypeId:",typeid)
+        const relation= await newPokemonDB.addType(typeid[0].id) 
+        console.log("Relation:",relation)
        } // pokemonid typeid
          //   10         5
          //   10         3
@@ -236,12 +242,11 @@ const {name,health_Power,attack,defense,speed,weight,height,image,type, abilitie
 
 router.delete("/pokemons/:id",async (req,res) => { 
 const {id} = req.params;
-const idSliced = id.slice(4);
+const idSliced = id.slice(4);//limpio el ID
 console.log(idSliced)
      try {
-         console.log("Entre al try")
-         await Pokemon.destroy({where: {id:idSliced}})// devuelve un number cant de registros eliminados
-       
+         const qtDeleted = await Pokemon.destroy({where: {id:idSliced}})// devuelve un number cant de registros eliminados
+         console.log("qtDeleted:",qtDeleted)
          res.json({id:"x",name:"POKEMON DELETED",attack:"x",abilities: "!x!",defense:"https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png", img:"https://c0.klipartz.com/pngpicture/56/60/gratis-png-pokemon-pikachu-ilustracion-pikachu-enojado-pokemon.png"})
      } catch (error) {res.json("Se ha producido un error, no se pudo eliminar")} 
      })
@@ -250,22 +255,20 @@ console.log(idSliced)
 router.put("/pokemons",async (req,res) => {
 const body = req.body;
 console.log(body)
+
 let filteredBody = {}
-for(let keys in body){
-    if( keys !== "where" && body[keys] !== ""){
+for(let keys in body){//creo un nuevo obj con lo que me sirve
+    if( keys !== "where" && body[keys] !== "" && !Array.isArray(body[keys]) ){ 
 Object.assign(filteredBody, { [keys]: body[keys]})
     }
 }
 console.log("FilteredBody:",filteredBody)
-
-
-
+//verifico si existe
 const pokemonFound = await Pokemon.findAll({where: {name: req.body.where}})
 if(pokemonFound.length > 0){
-    try {
+    try { //verifico si el objeto esta vacio
         if(Object.entries(filteredBody).length === 0) return res.json("No se realizaron cambios. No se recibieron valores")
         const qtModified = await Pokemon.update(filteredBody,
-        
         {
             where: {name: req.body.where}
         }
@@ -275,13 +278,7 @@ if(pokemonFound.length > 0){
 } catch (error) {console.log(error)}
 } else {
     res.json(`No se realizo ningun cambio. No existe un Pokemon con el nombre ${req.body.where} `)
-}
-
-
-
-
-
-
+} 
 })
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from "./formupdate.module.css";
 import {Link} from "react-router-dom";
 import { useDispatch } from 'react-redux'
@@ -10,9 +10,8 @@ export default function FormUpdate () {
     const dispatch = useDispatch();
   
 
-    useEffect(() => {  // actua como un DidMount y DidUpdate
-   
-    },[]) // array de dependencias
+   // useEffect(() => {  // actua como un DidMount y DidUpdate
+   // },) 
       
     
     const [where, setWhere] = useState("");
@@ -122,7 +121,7 @@ export default function FormUpdate () {
     }
       
     function validateImage (value) {
-    if (!/^(http[s]?)*$/.test(value)){
+    if (!/^(http[s]?)/.test(value)){
     setErrorImage('>>>> La Url de la imagen debe comenzar con http <<<< ')
     } else {
     setErrorImage('');

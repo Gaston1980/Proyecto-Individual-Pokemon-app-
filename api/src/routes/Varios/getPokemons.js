@@ -1,6 +1,5 @@
 const getPokemons = async (req,res) => {
-
-    const pokemonsCards = [];
+const pokemonsCards = [];
     try {
     await axios("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then(async response => { 
