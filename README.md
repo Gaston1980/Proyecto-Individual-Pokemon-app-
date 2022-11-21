@@ -1,4 +1,4 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/v1669052375/Screenshot_2022-11-21_at_14.11.59_wdrrtg.png)
 
 # Individual Project - Henry Pokemon
 
