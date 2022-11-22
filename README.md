@@ -1,5 +1,5 @@
 ![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_459/v1669052375/Screenshot_2022-11-21_at_14.11.59_wdrrtg.png)
-![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_529/v1669077646/Home_l6nxwh.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_459/v1669077646/Home_l6nxwh.png)
 
 # Individual Project - Henry Pokemon
 
