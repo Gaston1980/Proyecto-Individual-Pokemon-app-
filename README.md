@@ -1,4 +1,7 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_439/v1669052375/Screenshot_2022-11-21_at_14.11.59_wdrrtg.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_439/v1669077646/Home_l6nxwh.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_439/v1669079023/Create_Form_copy_qpu5wj.png)
+![HenryLogo](https://res.cloudinary.com/dyycj9vam/image/upload/c_scale,w_439/v1669079283/Update_Form_copy_xgmgux.png)
 
 # Individual Project - Henry Pokemon
 
