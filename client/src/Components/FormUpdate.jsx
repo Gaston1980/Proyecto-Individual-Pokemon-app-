@@ -168,7 +168,7 @@ export default function FormUpdate () {
                  placeholder= "Type the pokemon name to be modified here..." autoComplete="off"/>
                  {!errorWhere ? null : <span className={styles.errorMessage}>{errorWhere}</span>} 
                  
-                 <label className={styles.label}>Name: </label>
+                 <label className={styles.label}>Update Name: </label>
                  <input className={errorName? styles.invalido : styles.valido} // aca digo si hay error, aplicar la clase de estilos "invalido"
                  key="name" name="name" value={name} type="text"  onChange={(e) => validateName(e.target.value)}
                  placeholder= "Type the new pokemon name here..." autoComplete="off"/>

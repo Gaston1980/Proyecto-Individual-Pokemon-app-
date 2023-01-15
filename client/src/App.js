@@ -30,7 +30,7 @@ function App() {
     </Route>
 
     <Route path={'/home/details/:id'}
-      component={CardDetails} // aca le paso las props del Obj Window - match.params
+      component={CardDetails} // aca le paso como props las propiedades history,location,match del Obj Window
     />
 
     <Route exact path='/home/create'>

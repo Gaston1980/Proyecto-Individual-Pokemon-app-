@@ -1,6 +1,6 @@
 // Get All Pokemons from Api con Async Await - Map - Promise.all
 // Problems: sucede muy seguidamente que algunas de las promesas no se resuelven en el 
-// promise.all y tirar error. No eficiente funciona 3 de 10.
+// promise.all y tira error. No eficiente funciona 3 de 10.
 const resultaxios = await axios("https://pokeapi.co/api/v2/pokemon?limit=40")
    let arrayPromises = [];
     resultaxios.data.results.map((p) => arrayPromises.push(axios(p.url)));// hago el subrequest

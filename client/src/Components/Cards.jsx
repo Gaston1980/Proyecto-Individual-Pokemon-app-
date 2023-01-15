@@ -10,9 +10,9 @@ export  function Cards(props) {
     
 const dispatch = useDispatch();
     
-useEffect(() => {  // actua como un DidMount y DidUpdate(controlado)
+useEffect(() => {  
 dispatch(getAllPokemons());
-},[dispatch]) // array de dependencias
+},[dispatch]) 
             
 const [pagina, setPagina] = useState (1);
 const [porPagina, setPorPagina] = useState (12);

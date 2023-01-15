@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
  export class CardDetails extends React.Component {
 
 componentDidMount() {
-const id = this.props.match.params.id;
-this.props.getPokemonDetails(id);
+const id = this.props.match.params.id; // const params = useParams() 
+this.props.getPokemonDetails(id); // params.id
 }
 componentWillUnmount(){
 this.props.cleanPokemonState();
@@ -34,7 +34,7 @@ this.props.cleanPokemonState();
            {detalles.id === "x"? null : <p className={styles.p}>ID: {detalles.id}</p> }
            {!detalles.hp? null : <p className={styles.p}>Health Power: {detalles.hp}</p> }
            {detalles.attack === "x"? <h3 className={styles.h3}>{detalles.name}</h3> :<p className={styles.p}>Attack: {detalles.attack}</p> }
-           {detalles.defense ==="https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png"?<img className={styles.PokemonImg} src={detalles.defense} alt="pokemonImg"/> :<p className={styles.p}>Defense: {detalles.defense}</p>}
+           {detalles.defense ==="https://res.cloudinary.com/dyycj9vam/image/upload/v1673818030/Delete_card_1_copy_2_gljc3f.png"?<img className={styles.PokemonImg} src={detalles.defense} alt="pokemonImg"/> :<p className={styles.p}>Defense: {detalles.defense}</p>}
            {!detalles.speed? null :<p className={styles.p}>Speed: {detalles.speed}</p> }
            {!detalles.height? null :<p className={styles.p}>Height: {detalles.height}</p>}
            {!detalles.weight? null :<p className={styles.p}>Weight: {detalles.weight}</p> }

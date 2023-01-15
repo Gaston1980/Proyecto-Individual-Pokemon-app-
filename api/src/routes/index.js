@@ -66,7 +66,7 @@ router.get("/pokemons", async (req,res) => {
             console.log("Entro al Promise Catch")
             console.log("pokemonsFromDBClean.length:",pokemonsFromDBClean.length)
             if(pokemonsFromDBClean.length>0) return res.json(pokemonsFromDBClean)
-            else return res.json([{id:"0000404",name:"POKEMON NOT FOUND", img:"https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/13846-pikachu-con-pokebola-png.png?resize=500%2C500&ssl=1" }])
+            else return res.json([{id:"0000404",name:"POKEMON NOT FOUND", img:"https://res.cloudinary.com/dyycj9vam/image/upload/v1673818508/Card_Not_found_copy_2_mpn0ta.png" }])
         
          } )
          res.json(pokemonsCards) // <---si lo encuentra en la Api
@@ -131,9 +131,9 @@ router.get("/pokemons", async (req,res) => {
 
 router.get("/pokemons/:id",async (req,res) => {
    
-const {id} = req.params;
-const idSliced = id.slice(4); // 1
-if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
+const {id} = req.params; // IDDB10
+const idSliced = id.slice(4); // 10 // desde pos 4 en adelante lo que haya
+if( id.slice(0,4) === "IDDB") { // IDDB // desd 0 hasta pos 3
   try {
       //Si el Id empieza con IDDB busco en la DB
     const pokemonByIdFromDB =  await Pokemon.findByPk(idSliced,{include:{model: Type, attributes:["name"],through:{
@@ -192,8 +192,7 @@ if( id.slice(0,4) === "IDDB") { // id.slice(0,4) = IDDB
 
 router.get("/types",async (req,res) => {
     
-//Se dispatcha la solicitud al entrar al Form
-// para que cuando se vaya a crear un Pokemon, ya esten los types creados en la DB  
+
 try {
    
     //Busco los types en Type de la DB
@@ -224,19 +223,19 @@ console.log("Types:",type)
         
         //Creo el Pokemon en Pokemon DB
        const newPokemonDB = await Pokemon.create(
-       {name,hp: health_Power,attack,defense,speed,weight,height,image, abilities,}
+       {name,hp: health_Power,attack,defense,speed,weight,height,image, abilities}
        )
        //Se hace la relacion del Pokemon con Type segun sus types
        for(let i=0; i<type.length; i++){
         const typeid = await Type.findAll({where: {name: type[i]}})
         console.log("TypeId:",typeid)
-        const relation= await newPokemonDB.addType(typeid[0].id) 
+        const relation = await newPokemonDB.addType(typeid[0].id) 
         console.log("Relation:",relation)
        } // pokemonid typeid
          //   10         5
          //   10         3
-        res.json("Tu Pokemon se ha creado exitosamente")
-        } catch (error) { res.json("Se ha producido un error, por favor intenta nuevamente cambiando el nombre") }
+        res.json({text:"Tu Pokemon se ha creado exitosamente", icon:"success",confirmButtonColor:" rgb(94, 89, 89)", width: "22em" })
+        } catch (error) { res.json({text:"Se ha producido un error, por favor intenta nuevamente cambiando el nombre", icon:"error",confirmButtonColor:" rgb(94, 89, 89)", width: "22em" }) }
         
      })   
 
@@ -247,8 +246,8 @@ console.log(idSliced)
      try {
          const qtDeleted = await Pokemon.destroy({where: {id:idSliced}})// devuelve un number cant de registros eliminados
          console.log("qtDeleted:",qtDeleted)
-         res.json({id:"x",name:"POKEMON DELETED",attack:"x",abilities: "!x!",defense:"https://flyclipart.com/thumbs/angry-pikachu-transparent-angry-pikachu-1088472.png", img:"https://c0.klipartz.com/pngpicture/56/60/gratis-png-pokemon-pikachu-ilustracion-pikachu-enojado-pokemon.png"})
-     } catch (error) {res.json("Se ha producido un error, no se pudo eliminar")} 
+         res.json({id:"x",name:"POKEMON DELETED",attack:"x",abilities: "!x!",defense:"https://res.cloudinary.com/dyycj9vam/image/upload/v1673818030/Delete_card_1_copy_2_gljc3f.png",img:"https://res.cloudinary.com/dyycj9vam/image/upload/v1673817633/Delete_card_2_copy_sh6ntr.png"})
+     } catch (error) {console.log(error)} 
      })
 
 
@@ -267,17 +266,17 @@ console.log("FilteredBody:",filteredBody)
 const pokemonFound = await Pokemon.findAll({where: {name: req.body.where}})
 if(pokemonFound.length > 0){
     try { //verifico si el objeto esta vacio
-        if(Object.entries(filteredBody).length === 0) return res.json("No se realizaron cambios. No se recibieron valores")
+        if(Object.entries(filteredBody).length === 0) return res.json({text:"No se realizaron cambios. No se recibieron nuevos valores", icon:"error", confirmButtonColor:" rgb(94, 89, 89)"})
         const qtModified = await Pokemon.update(filteredBody,
         {
             where: {name: req.body.where}
         }
     );
     console.log("qtModified:",qtModified)
-    res.json(`Se actualizaron con exito los valores en el Pokemon ${req.body.where}`)
+    res.json({text:`Se actualizaron con exito los valores en el Pokemon:"${req.body.where}"`, icon:"success",confirmButtonColor:" rgb(94, 89, 89)", width: "22em" })
 } catch (error) {console.log(error)}
 } else {
-    res.json(`No se realizo ningun cambio. No existe un Pokemon con el nombre ${req.body.where} `)
+    res.json({text:`No se realizo ningun cambio. No existe un Pokemon con el nombre:"${req.body.where}"`, icon:"error", confirmButtonColor:" rgb(94, 89, 89)", width: "22em"})
 } 
 })
 

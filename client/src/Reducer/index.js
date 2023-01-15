@@ -1,4 +1,5 @@
 import { GET_ALL_POKEMONS, GET_POKEMON_DETAILS, CREATE_POKEMON,UPDATE_POKEMON, GET_POKEMON_BY_NAME, GET_TYPES, SORTED_POKEMONS, CREATED_OR_API_POKEMONS, POKEMONS_BY_TYPE, REINICIAR_POKEMONS,CLEAN_POKEMON_STATE, DELETE_POKEMON_DB } from "../Actions/index.js"
+import Swal from 'sweetalert2'
 
 const initialState = {
     pokemones: [], 
@@ -32,20 +33,20 @@ export default function reducer(state = initialState, action) {
             }
 
         case CREATE_POKEMON:
-            alert(action.payload)
+            Swal.fire(action.payload)
             return {
                 ...state,
                 message: action.payload
              }
         case UPDATE_POKEMON:
-            alert(action.payload)
+            Swal.fire(action.payload)
             return {
                 ...state,
                 message: action.payload
             }
 
         case DELETE_POKEMON_DB:
-             alert("El Pokemon se ha borrado de la base de datos")
+            Swal.fire({text:"El Pokemon se ha borrado de la base de datos", width:"22em", icon:"success",confirmButtonColor:"rgb(94, 89, 89)"})
                 return {
                     ...state,
                     pokemon: action.payload
@@ -77,7 +78,6 @@ export default function reducer(state = initialState, action) {
               }   
             }else
             if(action.payload === "A-Z"){
-            //let allPokemons = state.pokemones
             let sortedAZ = state.pokemonrenderizado.sort((a,b) => {
             if (a.name > b.name) {
             return 1;
@@ -174,7 +174,10 @@ export default function reducer(state = initialState, action) {
                     ...state,
                     pokemonrenderizado: [...state.pokemones]
                     
-                }} else {
+                }
+           
+            
+            } else {
                     let allPokemons = state.pokemones;
                     let pokemonByType = [];
                     for(let i=0; i< allPokemons.length; i++){

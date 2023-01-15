@@ -18,8 +18,6 @@ const dispatch = useDispatch();
             <span className={styles.span}>HOME</span>
             </Link>
             
-           
-
             <label className={styles.labels} htmlFor="tipos">Types: </label>
             <select name="tipos"id="tipos"
             onChange={(e) => dispatch(pokemonsByType(e.target.value))}

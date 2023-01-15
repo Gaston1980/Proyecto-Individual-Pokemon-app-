@@ -1,4 +1,5 @@
 import axios from "axios"
+
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS"; //para que no haya errores de tipeo
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_POKEMON_DETAILS = "GET_POKEMON_DETAILS";
@@ -21,7 +22,7 @@ export const getAllPokemons = () => dispatch => {;
     }
 
 export const getPokemonByName = (name) => dispatch => {;
-    return fetch(`http://localhost:3001/pokemons?name=${name}`)
+    return fetch(`http://localhost:3001/pokemons?name=${name}`) 
     .then(res => res.json())
     .then(obj => dispatch({type: GET_POKEMON_BY_NAME, payload: obj}))
     .catch(err => console.log(err))
@@ -92,4 +93,25 @@ export const deletePokemonDB  = (id) => dispatch => {
     .then(res => dispatch({type: DELETE_POKEMON_DB, payload: res.data}) )
     .catch(err => console.log("CatchAction:",err))
     }
+
+
+
+
+
+
+    
+
+
+
+
+/*
+export const deletepokemonDB = (id) =>  async (dispatch) => {
+    try {
+    const axiosResponse = await axios.delete(`http://localhost:3001/pokemons/${id}`)
+    return dispatch({type: DELETE_POKEMON_DB, payload: axiosResponse.data})
+    } catch(error) {console.log("Catch:",error)}
+} 
+*/
+
+
 

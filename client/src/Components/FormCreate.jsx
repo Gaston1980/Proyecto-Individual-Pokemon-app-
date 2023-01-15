@@ -9,9 +9,9 @@ export default function FormCreate () {
 const dispatch = useDispatch();
   
 
-useEffect(() => {  // actua como un DidMount y DidUpdate(controlado)
+useEffect(() => { 
 dispatch(getTypes())
-},[dispatch]) // array de dependencias
+},[dispatch]) 
   
 
 const [name, setName] = useState("");
@@ -24,6 +24,7 @@ const [height, setHeight] = useState("");
 const [abilities, setAbilities] = useState("");
 const [image, setImage] = useState("");
 const [type, setType] = useState([]);
+
 
 const [errorName, setErrorName] = useState("");
 const [errorHp, setErrorHp] = useState("");
@@ -120,7 +121,8 @@ setImage(value);
 const handleOnChange = (e) => {
 setType([...type, e.target.value])
 }
-  
+
+
   
 const onDelete = (e) => {
 //console.log(e.target.value)
@@ -128,7 +130,7 @@ setType(type.filter(t => t !== e.target.value))
 }
 
 function onSubmit (e) {
-e.preventDefault() // para que no se re renderice y pierda los estados
+e.preventDefault() 
 const obj = { name: name,health_Power: hp, attack: attack, defense: defense, speed: speed, height: height,  weight: weight, abilities: abilities, image: image, type: type.length < 1? ["normal"] : type   } // 
 //console.log(obj)
 dispatch(createPokemon(obj));
@@ -237,7 +239,8 @@ return (
             <option>shadow</option>
             <option>unknown</option>
             </select>
-           
+
+
        </form>
 
        <ul className={styles.ulselect}>
