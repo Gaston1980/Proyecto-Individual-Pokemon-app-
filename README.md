@@ -7,7 +7,39 @@
 
 <img height="150" src="./pokemon.png" />
 
-## Objetivos del Proyecto
+Individual Project within the "Labs" stage of the Henry Bootcamp. 👨‍💻
+
+I designed and developed a Pokemon App that included features such as searching, filtering, sorting, and a complete CRUD functionality.
+
+🛠️ Technologies used:
+Javascript
+Frontend: ReactJS, Redux, CSS module, HTML
+Backend: NodeJS, Express, Sequelize, PostgreSQL
+
+⚙️ Features:
+
+👾 Creation (Controlled Form):
+- Allows creating Pokemons, assigning different names, abilities, etc. It also allows assigning types and custom images.
+
+👾 Deletion: Pokemons created can be deleted.
+
+👾 Modification (Controlled Form): Pokemons created can be modified.
+
+🔍 Search:
+- Allows searching for Pokemons by name, both from the API and the ones created in the database.
+
+🔢 Pagination:
+- Divides the presentation of Pokemons into different pages, displaying a maximum of 12 cards per page.
+
+✔️ Filtering:
+- Allows filtering Pokemons by available types.
+- Allows filtering Pokemons between those existing in the API (pokeapi.co) and the ones created in the database.
+
+🗃️ Sorting:
+- Allows sorting Pokemons alphabetically, by Attack value, and by ID.
+
+
+## Objetivos del proyecto 
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
